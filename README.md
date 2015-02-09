@@ -1,2 +1,3 @@
 # google-code-jam
-Code jam reference solutions
+
+This repository shows reference solution for several google code jam problems. 
