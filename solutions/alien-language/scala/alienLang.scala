@@ -14,7 +14,7 @@ object alienLang {
       /*****************
       *  Input
       ******************/
-      val input = codeJamIO.read("A-small-practice.in")
+      val input = codeJamIO.read_alien("A-large-practice.in")
       val dictionary = input._1
       val tests = input._2
 
@@ -26,6 +26,6 @@ object alienLang {
       /*****************
       *  Output
       ******************/ 
-      codeJamIO.write("salida.txt", solutions)
+      codeJamIO.write("A-large-practice.out", solutions)
    }
 }
