@@ -43,7 +43,7 @@ func writeLines(lines []string, path string) error {
 }
 
 func main() {
-	filename := "A-small-practice.in"
+	filename := "A-large-practice.in"
 	lines, err := readLines(filename)
 	if err != nil {
 		log.Fatalf("readLines: %s", err)
@@ -62,29 +62,9 @@ func main() {
 	}
 	//Iterate through each String regex.
 	for i := 0; i < testCases; i++ {
-		flag, flag2, tmp := false, false, ""
 		regExpr = append(regExpr, lines[i+languageLength+1])
-
-		for _, rune := range regExpr[i] { //Iterate each rune from String
-			if rune == 41 {
-				flag = false
-				tmp += ")"
-				continue
-			} else if rune == 40 {
-				flag = true
-				flag2 = false
-				tmp += "("
-				continue
-			}
-			if flag2 && flag {
-				tmp += "|"
-			}
-
-			tmp2, _ := strconv.Unquote(strconv.QuoteRune(rune))
-			tmp += tmp2
-			flag2 = true
-		}
-		regExpr[i] = tmp
+		regExpr[i] = strings.Replace(regExpr[i], "(", "[", -1)
+		regExpr[i] = strings.Replace(regExpr[i], ")", "]", -1)
 	}
 	var s []string
 	for r := 0; r < len(regExpr); r++ {

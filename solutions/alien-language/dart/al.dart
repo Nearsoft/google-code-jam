@@ -15,31 +15,10 @@ main() {
     }
 
     for(int i=0; i<testCases; i++){ //Iterate through each String regex.
-      bool flag = false, flag2=false;
       String tmp = "";
       regExpr.add(lines[i+languageLength+1]);
-
-      for(int rune in regExpr[i].runes){
-        if(rune==41){
-          flag = false;
-          tmp+=")";
-          continue;
-        }else if(rune==40){
-          flag = true;
-          flag2=false;
-          tmp+="(";
-          continue;
-        }
-
-        if(flag2 && flag){
-          tmp+="|";
-        }
-        
-        tmp+=new String.fromCharCode(rune);
-        flag2=true;
-      }
-
-      regExpr[i]=tmp;
+      regExpr[i] = regExpr[i].replaceAll("(","[");
+      regExpr[i] = regExpr[i].replaceAll(")","]");
     }
 
     for(int r = 0; r < regExpr.length; r++){
