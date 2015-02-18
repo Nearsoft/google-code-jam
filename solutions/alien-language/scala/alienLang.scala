@@ -14,7 +14,7 @@ object alienLang {
       /*****************
       *  Input
       ******************/
-      val input = codeJamIO.read_alien("A-large-practice.in")
+      val input = codeJamIO.read_alien("A-large l-practice.in")
       val dictionary = input._1
       val tests = input._2
 
