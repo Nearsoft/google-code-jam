@@ -1,0 +1,42 @@
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+
+void main() {
+    new File('in2.txt').readAsLines().then((List<String> file) { //here we put the path of the input file
+          print(file);
+                  var variables=file[0].split(" "); //creating array variables[3,5,4] from  string file()
+                //print(variables);
+                //converting to int the  elemnts of the array [3,5,4]
+                  var l=int.parse(variables[0]);     //length of the word
+                  var d=int.parse(variables[1]);     // words
+                  var n=int.parse(variables[2]);    //test cases
+                  var dictionary = new List(d);    //creating dictionary for test cases
+                  var patterns = new List(n);      //creating patterns arrays for test cases
+              for (var x = 0; x < d; x++) {
+                dictionary[x]=file[x+1];
+              }
+          print(dictionary);
+              for (var y = 0; y < n; y++) {
+                patterns[y]=file[y+d+1].replaceAll("(","[").replaceAll(")","]");
+              }
+          print(patterns);
+
+          var out = new File('out.txt');
+          var sink = out.openWrite();
+          var x=0;
+          for (var i = 0; i < n; i++) {
+               x=x+1;
+            var cont=0;
+              for (var j = 0; j< d; j++) {
+                  RegExp exp = new RegExp(patterns[i]);
+                  String str = dictionary[j];
+                       if(exp.hasMatch(str)) {
+                         cont=cont+1;
+                         }
+                      }
+                  sink.write('Case #$x:  $cont \n');
+                    }
+
+          });
+      }
