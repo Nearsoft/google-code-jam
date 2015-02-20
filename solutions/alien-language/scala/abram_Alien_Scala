@@ -1,0 +1,49 @@
+mport scala.util.matching.Regex
+import scala.io.Source._
+import java.io._
+import java.io.PrintWriter
+object app2 {
+
+    def main(args: Array[String]) {
+    //path of the input file 
+    val words = fromFile("/Users/Abram/in.txt").getLines.toList.flatMap(x => x.split(" "))
+    //for ( i <- 0 to (words.length - 1) ) {
+      //println(i+"--"+words(i))  //printing file
+    //}
+    val L=words(0).toInt
+    val D=words(1).toInt
+    val N=words(2).toInt
+    val Dictonary = new Array[String](D)
+
+    for ( i <- 0 to D-1) {
+      Dictonary(i)=words(i+3)
+      println(i+"_"+Dictonary(i))
+    }
+
+    val patterns = new Array[String](N)
+    for ( i <- 0 to N-1) {
+      patterns(i)=words(i+3+D).replaceAll("[(]","[").replaceAll("[)]","]");
+      println(i+"_"+patterns(i))
+    }
+    var x=0
+    val S = new PrintWriter("/Users/Abram/Out.txt") //aqui se pone la direccion de salida
+    for ( i <- 0 to N-1)  {
+      var cont=0
+      x=x+1
+          for( j <- 0 to D-1)  {
+            val D=Dictonary(j)
+            val P=patterns(i).r
+            if(P.pattern.matcher(D).matches) {
+               cont+= 1
+            }
+
+          }
+      S.println("Case #"+x+":"+" "+cont)
+
+    }
+S.close
+
+  }
+
+}
+
