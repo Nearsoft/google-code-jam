@@ -26,7 +26,7 @@ object app2 {
       println(i+"_"+patterns(i))
     }
     var x=0
-    val S = new PrintWriter("/Users/Abram/Out.txt") //aqui se pone la direccion de salida
+    val S = new PrintWriter("/Users/Abram/Out.txt") //output file
     for ( i <- 0 to N-1)  {
       var cont=0
       x=x+1
