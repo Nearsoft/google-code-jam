@@ -2,9 +2,9 @@
 *   @author  Manuel Valle
 *   @date    Febrero 2015
 */
-import codeJamIO._
+import CodeJamIO._
 
-object alienLang {
+object AlienLang {
    def matchStr(str: String, pattern: String) : Int ={
       if (str.matches(pattern)) 1 else 0
    }
@@ -14,7 +14,7 @@ object alienLang {
       /*****************
       *  Input
       ******************/
-      val input = codeJamIO.read_alien("A-large l-practice.in")
+      val input = CodeJamIO.read("A-large l-practice.in")
       val dictionary = input._1
       val tests = input._2
 
@@ -26,6 +26,6 @@ object alienLang {
       /*****************
       *  Output
       ******************/ 
-      codeJamIO.write("A-large-practice.out", solutions)
+      CodeJamIO.write("A-large-practice.out", solutions)
    }
 }

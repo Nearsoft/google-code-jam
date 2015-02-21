@@ -93,7 +93,7 @@ func main() {
 		s = append(s, "Case #"+strconv.Itoa(i)+": "+ans)
 	}
 
-	if err := writeLines(s, "solution.txt"); err != nil {
+	if err := writeLines(s, "C-small-practice.out"); err != nil {
 		log.Fatalf("Error!", err)
 	}
 }

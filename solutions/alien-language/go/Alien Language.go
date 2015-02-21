@@ -48,15 +48,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("readLines: %s", err)
 	}
-	var languageWords []string = strings.Split(lines[0], " ")
+	var fileVariables []string = strings.Split(lines[0], " ")
 	var regExpr []string
-	// wordLength, _ := strconv.Atoi(languageWords[0])
-	languageLength, _ := strconv.Atoi(languageWords[1])
-	testCases, _ := strconv.Atoi(languageWords[2])
-	caseN := make([]int, testCases)
-	languageWords = languageWords[:0]
+	// wordLength, _ := strconv.Atoi(fileVariables[0])
+	languageLength, _ := strconv.Atoi(fileVariables[1])
+	testCases, _ := strconv.Atoi(fileVariables[2])
+	solutions := make([]int, testCases)
 
 	//Add the language that will be tested.
+	var languageWords []string
 	for i := 0; i < languageLength; i++ {
 		languageWords = append(languageWords, lines[i+1])
 	}
@@ -68,13 +68,13 @@ func main() {
 	}
 	var s []string
 	for r := 0; r < len(regExpr); r++ {
-		caseN[r] = 0
+		solutions[r] = 0
 		for t := 0; t < len(languageWords); t++ {
 			if a, _ := regexp.MatchString(regExpr[r], languageWords[t]); a {
-				caseN[r]++
+				solutions[r]++
 			}
 		}
-		s = append(s, "Case #"+strconv.Itoa(r+1)+": "+strconv.Itoa(caseN[r]))
+		s = append(s, "Case #"+strconv.Itoa(r+1)+": "+strconv.Itoa(solutions[r]))
 	}
 	if err := writeLines(s, "solution.txt"); err != nil {
 		log.Fatalf("Error!", err)

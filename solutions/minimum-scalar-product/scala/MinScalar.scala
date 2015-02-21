@@ -2,9 +2,9 @@
 *   @author  Manuel Valle
 *   @date    Febrero 2015
 */
-import codeJamIO._
+import CodeJamIO._
 
-object minScalarProduct {
+object MinScalar {
    def dot (v1 : Array[Long], v2 : Array[Long]) : Long ={
       require(v1.size == v2.size)
       ((v1 zip v2).map{ Function.tupled(_ * _)}).sum
@@ -15,7 +15,7 @@ object minScalarProduct {
       /*****************
       *  Input
       ******************/
-      val vector_pairs = codeJamIO.read_scalar("A-large-practice.in")
+      val vector_pairs = CodeJamIO.read("A-large-practice.in")
       
       /*****************
       *  Magic
@@ -25,6 +25,6 @@ object minScalarProduct {
       /*****************
       *  Output
       ******************/ 
-      codeJamIO.write("A-large-practice.out", solutions.map(_.toString))
+      CodeJamIO.write("A-large-practice.out", solutions.map(_.toString))
    }
 }

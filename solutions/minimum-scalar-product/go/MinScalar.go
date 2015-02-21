@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	// "regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -73,7 +72,7 @@ func main() {
 		}
 		s = append(s, "Case #"+strconv.Itoa((i/3)+1)+": "+strconv.Itoa(ans))
 	}
-	if err := writeLines(s, "solution.txt"); err != nil {
+	if err := writeLines(s, "A-small-practice.out"); err != nil {
 		log.Fatalf("Error!", err)
 	}
 }
