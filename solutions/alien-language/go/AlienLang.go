@@ -1,82 +1,70 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"log"
-	"os"
-	"regexp"
-	"strconv"
-	"strings"
-)
+import "fmt"
+import "strconv"
+import "strings"
+import "bufio"
+import "log"
+import "os"
+import "regexp"
 
-// readLines reads a whole file into memory
-// and returns a slice of its lines.
 func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
+  file, err := os.Open(path)
+  if err != nil {
+    return nil, err
+  }
+  defer file.Close()
 
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
-
-// writeLines writes the lines to the given file.
-func writeLines(lines []string, path string) error {
-	file, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	w := bufio.NewWriter(file)
-	for _, line := range lines {
-		fmt.Fprintln(w, line)
-	}
-	return w.Flush()
+  var lines []string
+  scanner := bufio.NewScanner(file)
+  for scanner.Scan() {
+    lines = append(lines, scanner.Text())
+  }
+  return lines, scanner.Err()
 }
 
 func main() {
-	filename := "A-large-practice.in"
-	lines, err := readLines(filename)
-	if err != nil {
-		log.Fatalf("readLines: %s", err)
-	}
-	var fileVariables []string = strings.Split(lines[0], " ")
-	var regExpr []string
-	// wordLength, _ := strconv.Atoi(fileVariables[0])
-	languageLength, _ := strconv.Atoi(fileVariables[1])
-	testCases, _ := strconv.Atoi(fileVariables[2])
-	solutions := make([]int, testCases)
 
-	//Add the language that will be tested.
-	var languageWords []string
-	for i := 0; i < languageLength; i++ {
-		languageWords = append(languageWords, lines[i+1])
-	}
-	//Iterate through each String regex.
-	for i := 0; i < testCases; i++ {
-		regExpr = append(regExpr, lines[i+languageLength+1])
-		regExpr[i] = strings.Replace(regExpr[i], "(", "[", -1)
-		regExpr[i] = strings.Replace(regExpr[i], ")", "]", -1)
-	}
-	var s []string
-	for r := 0; r < len(regExpr); r++ {
-		solutions[r] = 0
-		for t := 0; t < len(languageWords); t++ {
-			if a, _ := regexp.MatchString(regExpr[r], languageWords[t]); a {
-				solutions[r]++
-			}
-		}
-		s = append(s, "Case #"+strconv.Itoa(r+1)+": "+strconv.Itoa(solutions[r]))
-	}
-	if err := writeLines(s, "solution.txt"); err != nil {
-		log.Fatalf("Error!", err)
-	}
+    input, err := readLines("A-large-practice.in")
+    if err != nil {
+      log.Fatalf("readLines: %s", err)
+      return
+    }
+
+    var L = getIntInput(input[0], 0)
+    var D = getIntInput(input[0], 1)
+    var N = getIntInput(input[0], 2)
+
+    var words = createArray(input, 1, D+1)
+    var tokens = createArray(input, D+1, D+1+N)
+
+    for i := 0; i < len(tokens); i++ {
+        fmt.Println("Case #" + strconv.Itoa(i+1) + ": " +  strconv.Itoa(match(tokens[i], words)))
+    }
+}
+
+func match(token string, words []string) int {
+    var counter = 0
+    token = strings.Replace(token, "(", "[", -1)
+    token = strings.Replace(token, ")", "]", -1)
+        for j := 0; j < len(words); j++ {
+	    b,_ := regexp.MatchString(token, words[j])
+	    if(b){
+                counter++
+            }
+        }
+    return counter
+}
+
+func createArray(input []string, min, max int) []string {
+    var array []string
+    for i := min; i < max; i++ {
+        array = append(array, input[i])
+    }
+    return array
+}
+
+func getIntInput(str string, idx int) int {
+    i, _ := strconv.Atoi(strings.Split(str, " ")[idx])
+    return i
 }
