@@ -1,34 +1,44 @@
 import 'dart:io';
 
-main() {
-  final filename = 'solution-small.txt';
-  var sink = new File(filename).openWrite();
+void main() {
 
-  new File('A-small-practice.in').readAsLines().then((List<String> lines) {
-    var fileVariables = lines[0].split(" "), regExpr = [];
-    int wordLength = int.parse(fileVariables[0]), languageLength = int.parse(fileVariables[1]), testCases = int.parse(fileVariables[2]); //L D N
-    
-    var languageWords = [];
-    var solutions = new List(testCases);
+    new File('/home/francisco/dart/google/bin/A-small-practice.in').readAsLines().then((List<String> input) {
+      var letters = input[0];
 
-    for(int i=0; i<languageLength; i++){ //Add the language that will be tested.
-      languageWords.add(lines[i+1]);
-    }
+      //sacar L, D y N
+      var L = getIntFromString(letters, 0);
+      var D = getIntFromString(letters, 1);
+      var N = getIntFromString(letters, 2);
 
-    for(int i=0; i<testCases; i++){ //Iterate through each String regex.
-      regExpr.add(lines[i+languageLength+1]);
-      regExpr[i] = regExpr[i].replaceAll("(","[").replaceAll(")","]");
-    }
+      var words = createArray(input, 1, D + 1);
 
-    for(int r = 0; r < regExpr.length; r++){
-      regExpr[r] = new RegExp(regExpr[r]);
-      solutions[r]=0;
-      for(int t = 0; t <languageWords.length; t++){
-        if(regExpr[r].hasMatch(languageWords[t])){
-          solutions[r]++;
-        }
+      var tokens = createArray(input, D + 1, D + 1 + N);
+      for (var i = 0; i < tokens.length; i++) {
+        print("Case #" + (i + 1).toString() + ": " + match(tokens[i], words).toString());
       }
-      sink.write("Case #${r+1}: ${solutions[r]}\n");
-    }
   });
+}
+
+int match(String token, words) {
+  var counter = 0;
+
+  for (var j = 0; j < words.length; j++) {
+    var regex = new RegExp(token.replaceAll("(", "[").replaceAll(")", "]"));
+    if (regex.hasMatch(words[j])) {
+      counter++;
+    }
+  }
+  return counter;
+}
+
+createArray(input, int min, int max) {
+  var array = [];
+  for (var i = min; i < max; i++) {
+    array.add(input[i]);
+  }
+  return array;
+}
+
+int getIntFromString(String str, int idx) {
+  return int.parse(str.split(" ")[idx]);
 }
