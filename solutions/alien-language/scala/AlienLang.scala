@@ -1,31 +1,26 @@
-/*
-*   @author  Manuel Valle
-*   @date    Febrero 2015
-*/
-import CodeJamIO._
+object Alien {
 
-object AlienLang {
-   def matchStr(str: String, pattern: String) : Int ={
-      if (str.matches(pattern)) 1 else 0
-   }
-  
-   def main(args: Array[String]) {
+	def main(args: Array[String]) {
 
-      /*****************
-      *  Input
-      ******************/
-      val input = CodeJamIO.read("A-large l-practice.in")
-      val dictionary = input._1
-      val tests = input._2
+	    val input = io.Source.fromFile("A-large-practice.in").getLines.toList
 
-      /*****************
-      *  Magic
-      ******************/
-      var solutions = tests.map(_.replace("(", "[")).map(_.replace(")", "]")).map((pattern) => dictionary.map((word) => matchStr(word, pattern)).sum.toString)
-      
-      /*****************
-      *  Output
-      ******************/ 
-      CodeJamIO.write("A-large-practice.out", solutions)
-   }
+	    var L = input(0).split(" ")(0).toInt
+	    var D = input(0).split(" ")(1).toInt
+	    var N = input(0).split(" ")(2).toInt
+
+	    var words = createArray(input, 1, D+1)
+	    var tokens = createArray(input, D+1, D+1+N)
+
+	    for (i <- 0 to tokens.length - 1) {
+		println("Case #" + (i+1) + ": " +  words.filter(_.matches(tokens(i).replace("(", "[").replace(")", "]") ) ).count(_ => true) )
+	    }
+	}
+
+	def createArray(input: List[String], min: Int, max: Int) : List[String] = {
+	    var array = List[String]()
+	    for (i <- min to max - 1) {
+		array = array :+ input(i)
+	    }
+	    return array
+	}
 }
