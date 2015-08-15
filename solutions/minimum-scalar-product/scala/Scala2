@@ -1,0 +1,20 @@
+object HelloWorld {
+   def main(args: Array[String]) {
+      val source = scala.io.Source.fromFile("C:\\Users\\Ariel Isac\\Desktop\\text.text")
+      val lines = source.getLines.filter(_.length > 0)
+      var testCases=lines(0).toInt
+      var aux=1
+      var minimo=0
+      for( a <- 0 to testCases){
+         var arr1=lines(aux).split(' ').map(_.toInt).sortWith(_< _)
+         aux=aux+1
+         var arr2=lines(aux).split(' ').map(_.toInt)(_ > _)
+         for(i<- 0 to(arr1.length-1)){
+            minimo+=arr1(i)*arr2(i)
+          }
+          aux+2
+          println(minimo)
+      }
+
+   }
+}

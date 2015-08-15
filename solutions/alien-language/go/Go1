@@ -1,0 +1,46 @@
+package main
+
+
+import ("fmt"
+
+    "regexp"
+
+    "strings"
+
+)
+
+
+func main() {
+
+    var expresion string = "(abc)(abc)(abc)"
+
+    var counter int = 0
+
+    expresion = strings.Replace(expresion, "(", "[", -1)
+
+    expresion = strings.Replace(expresion, ")", "]", -1)
+
+    re := regexp.MustCompile(expresion)
+
+    var t = []string{"abc", "bca", "dac", "dbc", "cba"}
+
+
+    for i := 0; i < len(t); i++ {
+
+
+        if re.FindAllString(t[i], 8) != nil {
+
+            counter++
+
+        }
+
+    }
+
+    fmt.Println(counter)
+
+
+
+
+
+
+}
