@@ -1,78 +1,47 @@
+
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"log"
-	"os"
-	"sort"
-	"strconv"
-	"strings"
-)
-
-// readLines reads a whole file into memory
-// and returns a slice of its lines.
-func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
-
-// writeLines writes the lines to the given file.
-func writeLines(lines []string, path string) error {
-	file, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	w := bufio.NewWriter(file)
-	for _, line := range lines {
-		fmt.Fprintln(w, line)
-	}
-	return w.Flush()
-}
+import ("fmt"
+  "log"
+  "bufio"
+  "strings"
+  "strconv"
+  "sort"
+  "os")
 
 func main() {
-	filename := "A-small-practice.in"
-	lines, err := readLines(filename)
-	if err != nil {
-		log.Fatalf("readLines: %s", err)
-	}
+   file, err := os.Open(os.Args[1])
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer file.Close()
 
-	testCases, _ := strconv.Atoi(lines[0])
-	var s []string
+  scanner := bufio.NewScanner(file)
+  var lines []string
+  for scanner.Scan() {
+    lines = append(lines, scanner.Text())
+  }
 
-	for i := 1; i < testCases*3; i += 3 {
-		var v1 []string = strings.Split(lines[i+1], " ")
-		var v2 []string = strings.Split(lines[i+2], " ")
-		var v1i, v2i []int
-		ans := 0
-		tmpLen, _ := strconv.Atoi(lines[i])
-		for j := 0; j < tmpLen; j++ {
-			tmp, _ := strconv.Atoi(v1[j])
-			v1i = append(v1i, tmp)
-			tmp, _ = strconv.Atoi(v2[j])
-			v2i = append(v2i, tmp)
-		}
-		sort.Sort(sort.IntSlice(v1i))
-		sort.Sort(sort.Reverse(sort.IntSlice(v2i)))
+  for i := 1; i < len(lines); i+=3 {
+    first_array_s := strings.Split(lines[i + 1], " ")
+    second_aray_s := strings.Split(lines[i + 2], " ")
+    var first_array_i, second_array_i []int
 
-		for j := 0; j < tmpLen; j++ {
-			ans += v1i[j] * v2i[j]
-		}
-		s = append(s, "Case #"+strconv.Itoa((i/3)+1)+": "+strconv.Itoa(ans))
-	}
-	if err := writeLines(s, "A-small-practice.out"); err != nil {
-		log.Fatalf("Error!", err)
-	}
+    for i := 0; i < len(first_array_s); i++ {
+      k, _ := strconv.Atoi(first_array_s[i])
+      first_array_i = append(first_array_i, k)
+
+      k, _ = strconv.Atoi(second_aray_s[i])
+      second_array_i = append(second_array_i, k)
+    }
+
+    sort.Sort(sort.Reverse(sort.IntSlice(first_array_i)))
+    sort.Sort(sort.IntSlice(second_array_i))
+
+    res := 0
+    for i := 0; i < len(first_array_i); i++ {
+      res += first_array_i[i] * second_array_i[i];
+    }
+    fmt.Println("Case # "+ strconv.Itoa((i/3) + 1)+": "+ strconv.Itoa(res))
+  }
 }

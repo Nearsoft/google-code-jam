@@ -1,31 +1,35 @@
-/*
-*   @author  Manuel Valle
-*   @date    Febrero 2015
-*/
-import CodeJamIO._
+object AlienLanguage extends App {
+  val source = scala.io.Source.fromFile(args(0))
+  val lines = source.getLines.filter(_.length > 0)
 
-object AlienLang {
-   def matchStr(str: String, pattern: String) : Int ={
-      if (str.matches(pattern)) 1 else 0
-   }
-  
-   def main(args: Array[String]) {
+  var params = lines.next.toString.split(" ").map(_.toInt)
+  var dictionary_length = params(1).toInt
 
-      /*****************
-      *  Input
-      ******************/
-      val input = CodeJamIO.read("A-large l-practice.in")
-      val dictionary = input._1
-      val tests = input._2
+  //println(dictionary_length)
+  var dictionary =   Array.empty[String]
 
-      /*****************
-      *  Magic
-      ******************/
-      var solutions = tests.map(_.replace("(", "[")).map(_.replace(")", "]")).map((pattern) => dictionary.map((word) => matchStr(word, pattern)).sum.toString)
-      
-      /*****************
-      *  Output
-      ******************/ 
-      CodeJamIO.write("A-large-practice.out", solutions)
-   }
+  //Filling the dictrionary
+  for (i <- 0 to dictionary_length - 1) {
+    dictionary :+= lines.next.toString
+  }
+
+  var num_case = 0
+
+  //Iterating over the test cases
+  while(lines.hasNext){
+    var test_case = lines.next //getting the regex
+    test_case = test_case.toString.replace('(', '[')
+    test_case = test_case.toString.replace(')', ']')
+
+    var regex = test_case
+    var res = 0
+
+    //Matching de regex with each word of the dictionary
+    for (i <- dictionary) {
+      if (i.matches(regex)) { res += 1 }
+    }
+
+    num_case += 1   //Getting the testcase number
+    println("Case #" + num_case  + ": " + res)
+  }
 }

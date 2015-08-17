@@ -1,28 +1,34 @@
 import 'dart:io';
 
-main() {
-  final filename = 'solution-large.txt';
-  var sink = new File(filename).openWrite();
+void main() {
 
   new File('A-large-practice.in').readAsLines().then((List<String> lines) {
-    num testCases = int.parse(lines[0]);
-    
-    for(int i=1; i<=testCases*3; i+=3){
-      var v1 = lines[i+1].split(" "), v2 = lines[i+2].split(" ");
-      int v1i = [], v2i = [], scalarProd = 0;
 
-      for(int j = 0; j<int.parse(lines[i]); j++){
-        v1i.add(int.parse(v1[j]));
-        v2i.add(int.parse(v2[j]));
+    for (var i = 1; i < lines.length - 1; i+= 3) {
+      var first_array = lines[i + 1].split(' ');
+      var second_array = lines[i + 2].split(' ');
+
+      var first_array_i = [], second_array_i =[];
+
+      //Parsing the elements
+      for (var j = 0; j < first_array.length; j++) {
+        first_array_i.add(int.parse(first_array[j]));
+        second_array_i.add(int.parse(second_array[j]));
       }
 
-      v1i.sort();
-      v2i.sort();
-      v2i = v2i.reversed.toList();
-      for(int j = 0; j<int.parse(lines[i]); j++){
-        scalarProd += v1i[j] * v2i[j];
+      //Sorting asc and desc
+      first_array_i.sort((a, b) => a.compareTo(b));
+      second_array_i.sort((a, b) => b.compareTo(a));
+
+      var res = 0;
+      for (var j = 0; j < first_array_i.length; j++) {
+        res += first_array_i[j] * second_array_i[j];
       }
-      sink.write("Case #${(i~/3)+1}: ${scalarProd}\n");
+      //Printing the values
+      print("Case #" + (((i/3)+ 1).toInt()).toString() + ": " + res.toString());
+
     }
-  });
-}
+
+    });
+
+  }
