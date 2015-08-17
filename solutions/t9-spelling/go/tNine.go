@@ -1,99 +1,57 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"log"
-	"os"
-	"strconv"
-)
-
-// readLines reads a whole file into memory
-// and returns a slice of its lines.
-func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
-
-// writeLines writes the lines to the given file.
-func writeLines(lines []string, path string) error {
-	file, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	w := bufio.NewWriter(file)
-	for _, line := range lines {
-		fmt.Fprintln(w, line)
-	}
-	return w.Flush()
-}
+    "fmt"
+    "log"
+    "bufio"
+    "strings"
+    "strconv"
+    "os")
 
 func main() {
-	filename := "C-large-practice.in"
-	lines, err := readLines(filename)
-	if err != nil {
-		log.Fatalf("readLines: %s", err)
-	}
-	keyOf := map[string]string{
-		"a": "2",
-		"b": "22",
-		"c": "222",
-		"d": "3",
-		"e": "33",
-		"f": "333",
-		"g": "4",
-		"h": "44",
-		"i": "444",
-		"j": "5",
-		"k": "55",
-		"l": "555",
-		"m": "6",
-		"n": "66",
-		"o": "666",
-		"p": "7",
-		"q": "77",
-		"r": "777",
-		"s": "7777",
-		"t": "8",
-		"u": "88",
-		"v": "888",
-		"w": "9",
-		"x": "99",
-		"y": "999",
-		"z": "9999",
-		" ": "0",
-	}
+    file, err := os.Open(os.Args[1])
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
 
-	testCases, err := strconv.Atoi(lines[0])
-	var s []string
-	ans, pre := "", ""
+    scanner := bufio.NewScanner(file)
+    var lines[]string
+    for scanner.Scan() {
+        lines = append(lines, scanner.Text())
+    }
 
-	for i := 1; i <= testCases; i++ {
-		pre, ans = "", ""
-		for _, rune := range lines[i] {
-			indx, _ := strconv.Unquote(strconv.QuoteRune(rune))
-			letterKey := keyOf[indx]
-			if pre == strconv.Itoa(int(letterKey[0])) {
-				ans += " "
-			}
-			ans += letterKey
-			pre = strconv.Itoa(int(letterKey[0]))
-		}
-		s = append(s, "Case #"+strconv.Itoa(i)+": "+ans)
-	}
+    numpad := []string {" ","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"}
 
-	if err := writeLines(s, "C-small-practice.out"); err != nil {
-		log.Fatalf("Error!", err)
-	}
+    for i := 1;
+    i < len(lines);
+    i += 1 {
+
+        var res string = ""
+        var prev_char int = 0
+        var word string = lines[i]
+
+        for j := 0;
+        j < len(word);
+        j++{
+            var char string = word[j: j + 1]
+            for k := 0;
+            k < len(numpad);
+            k++{
+                if (strings.Index(numpad[k], char) > -1) {
+                    if (prev_char == k) {
+                        res += " "
+                    }
+                    var num_index = strings.Index(numpad[k], char)
+                    for l := 0;
+                    l < num_index + 1;
+                    l++{
+                        res += strconv.Itoa(k)
+                    }
+                    prev_char = k;
+                }
+            }
+        }
+        fmt.Println("Case # "+ strconv.Itoa(i)+": "+ res)
+    }
 }

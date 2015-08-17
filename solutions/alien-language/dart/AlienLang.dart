@@ -1,34 +1,36 @@
 import 'dart:io';
 
-main() {
-  final filename = 'solution-small.txt';
-  var sink = new File(filename).openWrite();
+void main() {
 
   new File('A-small-practice.in').readAsLines().then((List<String> lines) {
-    var fileVariables = lines[0].split(" "), regExpr = [];
-    int wordLength = int.parse(fileVariables[0]), languageLength = int.parse(fileVariables[1]), testCases = int.parse(fileVariables[2]); //L D N
-    
-    var languageWords = [];
-    var solutions = new List(testCases);
 
-    for(int i=0; i<languageLength; i++){ //Add the language that will be tested.
-      languageWords.add(lines[i+1]);
+
+    var dictionary_length = int.parse(lines[0].split(' ')[1]);
+    var dictionary = [];
+    //Filling up the dictionary
+    for (var i = 1; i < dictionary_length + 1; i++) {
+      dictionary.add(lines[i]);
     }
 
-    for(int i=0; i<testCases; i++){ //Iterate through each String regex.
-      regExpr.add(lines[i+languageLength+1]);
-      regExpr[i] = regExpr[i].replaceAll("(","[").replaceAll(")","]");
-    }
+    for (var i = dictionary_length + 1; i < lines.length; i++) {
 
-    for(int r = 0; r < regExpr.length; r++){
-      regExpr[r] = new RegExp(regExpr[r]);
-      solutions[r]=0;
-      for(int t = 0; t <languageWords.length; t++){
-        if(regExpr[r].hasMatch(languageWords[t])){
-          solutions[r]++;
-        }
+      var test_case = lines[i];
+      test_case =  test_case.replaceAll('(', '['); // 'résumé'
+      test_case =  test_case.replaceAll(')', ']'); // 'résumé'
+
+      var regexp = new RegExp(test_case);
+      var res = 0;
+
+      //Cheking if the regex matches a word from the dictionary
+      for (var j = 0; j < dictionary_length; j++) {
+        var str = dictionary[j];
+        if (regexp.hasMatch(str)) res += 1;
       }
-      sink.write("Case #${r+1}: ${solutions[r]}\n");
+
+      //Printing the result
+      print("Case #" + (i - dictionary_length).toString() + ": " + res.toString());
     }
-  });
-}
+
+    });
+
+  }

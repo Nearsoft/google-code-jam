@@ -1,70 +1,53 @@
-// CREATED BY PEDRO DE LA REE 13/02/2015
- 
-import scala.io.Source._
- 
- 
-object T9 {
- 
-	def readFile(filename:String) : Array[String] ={
-		val source = scala.io.Source.fromFile(filename)
-		//val lines = source.getLines mkString "\n"
-		val lines = source.getLines.toArray
-		source.close()
-		return lines
-	}
-	def T9(test:Int, dict:Map[Char,String], word:String) : Unit ={
-	
-		var result = "";
-		var i = 0;
-		for (i <- 0 until word.length()) {
-			var X = dict(word(i));
-			if ( result.length() != 0 && X(X.length()-1) == result(result.length()-1) ) {
-				result += " ";
-			}
-			result += X;
-		}
-		//return result
-	    printf("Case #%d: %s\n", test, result);
-	    return 
-	}
- 
-	def main(args: Array[String]) {
- 
-		val dict = Map(
- 
-			'a' -> "2",
-			'b' -> "22",
-			'c' -> "222",
-			'd' -> "3",
-			'e' -> "33",
-			'f' -> "333",
-			'g' -> "4",
-			'h' -> "44",
-			'i' -> "444",
-			'j' -> "5",
-			'k' -> "55",
-			'l' -> "555",
-			'm' -> "6",
-			'n' -> "66",
-			'o' -> "666",
-			'p' -> "7",
-			'q' -> "77",
-			'r' -> "777",
-			's' -> "7777",
-			't' -> "8",
-			'u' -> "88",
-			'v' -> "888",
-			'w' -> "9",
-			'x' -> "99",
-			'y' -> "999",
-			'z' -> "9999",
-			' ' -> "0");
- 
-		var str = readFile("practice.in");
-		var i = 0;
-		for (i <- 2 until str.length) {
-			T9(i-1, dict, str(i));
-		}
- 
-	}
+object T9Spelling extends App {
+  val source = scala.io.Source.fromFile(args(0))
+  val lines = source.getLines.filter(_.length > 0)
+  lines.next //forget about the test cases number
+
+  var numpad = Array(
+    " ",
+    "",
+    "abc",
+    "def",
+    "ghi",
+    "jkl",
+    "mno",
+    "pqrs",
+    "tuv",
+    "wxyz"
+  )
+
+  var num_case = 0
+
+  //Reading the test cases
+  while(lines.hasNext){
+    var res = "";
+    var prev_char = 0
+    var test_case = lines.next
+
+    //For every character on the test case find its number on the keypad
+    for(i <- 0 to test_case.length - 1){
+      var char = test_case.charAt(i)
+
+      for(j <- 0 to numpad.length -1) {
+
+        if(numpad(j).indexOf(char) > -1) {
+          if (prev_char == j) res += " ";
+          var num_index = numpad(j).indexOf(char)
+
+          for(k <- 0 to num_index){
+             res += j
+          }
+
+          prev_char = j
+
+        }
+      }
+    }
+    num_case += 1
+    println("Case #" + num_case + ": " +res)
+
+  }
+
+
+
 }
