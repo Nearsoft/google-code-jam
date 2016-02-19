@@ -2,6 +2,7 @@
 "use strict"
 var fs  = require("fs");
 
+let final_text = '';
 let case_number = 0;
 let words = [];
 let datasetSize;
@@ -13,7 +14,7 @@ let getNumberOfWords = hints => {
     words.forEach(word =>{
       matches = (word.match(regex_model) !== null) ? matches+1 : matches;
     });
-    console.log('Case #'+(case_number - datasetSize)+': '+ matches);
+    final_text += `Case #${(case_number - datasetSize)} :  ${matches}\n`
 
 };
 
@@ -27,3 +28,7 @@ fs.readFileSync('../../../../codejamcases/alien-language-input.txt').toString().
     }
     case_number++;
   });
+
+fs.writeFile('alien-output.es6.out', final_text, error => {
+    (error) ? console.log(error) : console.log('File Saved!')
+});
