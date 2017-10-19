@@ -64,23 +64,19 @@ public class OminousOmino {
 
         //special cases for omino 4 that always block the area to be filled
         if(xomino==4) {
-            if(rows == 2 && columns >2 || columns == 2 && rows >2){
+            if(rows == 2 || columns == 2){
                 return true;
             }
         }
         //special cases for omino 5 that always block the area to be filled
         if(xomino==5) {
-            if(rows == 2 || columns == 2 ||
-                    rows == 3 && columns ==5 ||
-                    rows == 5 && columns ==3 ){
+            if(rows == 2 || columns == 2 || rows == 3 && columns ==5 || rows == 5 && columns ==3 ){
                 return true;
             }
         }
         //special cases for omino 6 that always block the area to be filled
         if(xomino==6) {
-            if(rows == 2 && columns >3 || columns == 2 && rows >3 ||
-                    rows == 3 || columns == 3 ||
-                    rows == 4 && columns ==4 ){
+            if(rows == 2 || columns == 2 || rows == 3 || columns == 3){
                 return true;
             }
         }
