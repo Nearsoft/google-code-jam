@@ -48,8 +48,27 @@ public class OminousOmino {
     private boolean perfectPieceExists(int xomino,int rows,int columns){
         int length=xomino,height=1;
 
+        if(xomino==4) {
+            if(rows == 2 && columns >2 || columns == 2 && rows >2){
+                return true;
+            }
+        }
+        if(xomino==5) {
+            if(rows == 2 || columns == 2 ||
+                    rows == 3 && columns ==5 ||
+                    rows == 5 && columns ==3 ){
+                return true;
+            }
+        }
+        if(xomino==6) {
+            if(rows == 2 && columns >3 || columns == 2 && rows >3 ||
+                    rows == 3 || columns == 3 ||
+                    rows == 4 && columns ==4 ){
+                return true;
+            }
+        }
         while(length>=height){
-            if(length<=rows && height<=columns || height<=rows && rows<=columns) {
+            if(length<=rows && height<=columns || height<=rows && length<=columns) {
                 length--;
                 height++;
                 continue;
