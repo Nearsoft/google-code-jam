@@ -13,9 +13,8 @@ class InputManager
     end
   end
   def getLine
-    # @cases.pop
-    while !@cases.empty?
-      puts @cases.shift
+    if !@cases.empty?
+      @cases.shift
     end
   end
 end

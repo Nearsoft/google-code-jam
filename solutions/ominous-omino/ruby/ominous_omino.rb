@@ -3,7 +3,11 @@ class OminousOmino
   end
   def testCase(line)
     values = line.split(" ").map(&:to_i)
-    puts values.inspect
+    xomino = values[0]
+    rows = values[1]
+    columns = values[2]
+
+
   end
 end
 
