@@ -6,8 +6,9 @@ if(ARGV[0])
 # ARGV.each do|a|
   inputManager = InputManager.new(ARGV[0])
   ominous = OminousOmino.new()
-
+  i=0
   while line = inputManager.getLine()
-    ominous.testCase(line)
+    puts "Case #"+(i+=1).to_s+": "+ominous.testCase(line)
+
   end
 end
