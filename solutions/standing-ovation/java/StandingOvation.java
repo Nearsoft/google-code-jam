@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ramon Ernesto Jimenez Rodriguez
+ * @version v1.0
+ */
 public class StandingOvation {
 
     /**
