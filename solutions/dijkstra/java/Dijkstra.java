@@ -34,13 +34,16 @@ public class Dijkstra {
      * @param x the number of times to multiply the string
      * @return the string multiplied
      */
-    private String getLX(String l, long x){
-        String lx = l;
-        for(int i=1;i<x;i++){
-            lx+=l;
-        }
-        return lx;
-    }
+     private String getLX(String l, long x){
+         StringBuilder lx = new StringBuilder(l);
+         if(x > 24){
+             x = x%4 + 24;
+         }
+         for(int i=1;i<x;i++){
+             lx.append(l);
+         }
+         return lx.toString();
+     }
 
     /**
      * Evaluate a string to see if it can be converted to "ijk"
