@@ -43,29 +43,6 @@ public class Dijkstra {
     }
 
     /**
-     * Dijkstra recursiva, causo un stackoverflow en los testcases mas grandes (cadena con 10000 elementos)
-     * @param testCase
-     * @param i
-     * @return
-     */
-    private String dijkstra(String testCase, int i){
-        String weExpect = "ijk";
-        if(testCase.equals(weExpect) || (testCase.isEmpty() && i == 3)){
-            return "YES";
-        }else{
-            if(!testCase.isEmpty() && testCase.charAt(0) == weExpect.charAt(i)){
-                return dijkstra(testCase.substring(1),(i+1));
-            }else{
-                if(testCase.length()>=3){
-                    String xy = getFirstElements(testCase);
-                    return dijkstra(testCase.replaceFirst(xy,getMultiplication(xy)),i);
-                }
-            }
-        }
-        return "NO";
-    }
-
-    /**
      * Evaluate a string to see if it can be converted to "ijk"
      * @param testCase the string to be converted
      * @return YES if is possible to convert the string and NO if it's not possible
