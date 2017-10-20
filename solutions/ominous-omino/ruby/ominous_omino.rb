@@ -1,6 +1,9 @@
 class OminousOmino
   def initialize()
   end
+  #evaluate the case and returs the winner
+  #params:
+  # line text line (case to evaluate)
   def testCase(line)
     values = line.split(" ").map(&:to_i)
     xomino = values[0]
@@ -15,13 +18,15 @@ class OminousOmino
 
     winner
   end
-
-
+  #find if there is a piece that doesn't fit in the grid or makes impossible to fill the whole grid
+  #params:
+  # xomino: number of omino
+  # rows: grid rows size
+  # columns: grid columns size
   def perfectPieceExists(xomino, rows,columns)
     length=xomino
     height=1
     exists = false
-
     case xomino
       when 4
         if rows == 2 || columns == 2
