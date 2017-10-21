@@ -71,7 +71,7 @@ func evaluateInput(input []string) string {
 /**
 *
 * @param testCase string line that has the values to evaluate
-* @return name of winner
+* @return number of friends that must be invited
  */
 func evaluateCase(testCase []string) string {
 	invited := 0
