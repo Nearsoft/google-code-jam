@@ -6,10 +6,7 @@ import (
 	"bufio"
 	"strconv"
 	"strings"
-	//"io"
 	"sort"
-	//"io/ioutil"
-	//"io/ioutil"
 	"io"
 )
 
@@ -24,31 +21,26 @@ func main() {
 
 	var t int
 	fmt.Fscanf(in, "%d\n", &t)
-	if t >= 1 {
-		if t <= 100 {
-			scanner := bufio.NewScanner(in)
-			for i := 1; i <= t; i++ {
-				scanner.Scan()
-				d := scanner.Text()
-				scanner.Scan()
-				pan := scanner.Text()
-				//fmt.Println(d," vale ", pan)
-				sol := solve(d, pan)
-				fmt.Println("Case #", i , ": ", sol)
-				pal := "Case #"
-				pal += strconv.Itoa(i)
-				pal += ": "
-				pal += strconv.Itoa(sol)
-				pal += "\n"
-				fmt.Println(pal)
+	if t >= 1 && t <= 100 {
+		scanner := bufio.NewScanner(in)
+		for i := 1; i <= t; i++ {
+			scanner.Scan()
+			d := scanner.Text()
+			scanner.Scan()
+			pan := scanner.Text()
+			sol := solve(d, pan)
+			pal := "Case #"
+			pal += strconv.Itoa(i)
+			pal += ": "
+			pal += strconv.Itoa(sol)
+			pal += "\n"
+			fmt.Println(pal)
 
-				_, err = io.Copy(fo, strings.NewReader(pal))
-				check(err)
-				}//End of for cycle
-
-			}
-		}
-	}
+			_, err = io.Copy(fo, strings.NewReader(pal))
+			check(err)
+		}//End of for cycle for
+	}//End of If
+}//End main
 
 
 
@@ -58,16 +50,15 @@ func check(e error) {
 	}
 }
 
+/*
+*Starts working on the problem
+*converting the values to int
+*then calls the function to get the result
+ */
+
 func solve(d, pan string) (mins int) {
-	/*This was the first version for the conversion of values
-	*Then I found it is possible to return easily values here in go
-	dinners, err := strconv.ParseInt(d, 10, 32)
-	check(err)
-	*/
 	dinners, pancakes := AizuArray(pan, d)//Calls the func to get converted first
 	mins = resu(dinners, pancakes)//Runs the func with the converted values
-	
-
 	return
 }
 
@@ -86,33 +77,32 @@ func AizuArray(pan string, d string) (int, []int) {
 	return n, b//Returns the int converted values of the dinners and the slice of the pancakes served
 }
 
+/*
+*Receives the information entered and converted to int
+*@return value of the minimun time it takes for the pancakes to be eatens (minutes)
+ */
 func resu(dinners int, pancakes []int) (minutes int) {
-	//fmt.Println("Probando que funciona ",dinners, " ", pancakes)
 	var min, max, aux, aux2, minTot int
-	sort.Ints(pancakes)
-	//fmt.Println("Probando orden ",dinners, " ", pancakes)
-	max = pancakes[dinners-1]
-	times := make([]int, 1)
+	sort.Ints(pancakes)//Sorts the array as min-max
+	max = pancakes[dinners-1]//Get the last value in the array (the max)
+	times := make([]int, 1)//This is gonna save all the times registered
 	times[0] = max
 	for i := 0; i < len(pancakes); i++ {
 		aux, aux2 = 0, 0
 		if minTot <= max{
 			for j := len(pancakes)-1; j > 0; j-- {
-				if pancakes[j] != 1{
-					if pancakes[j] == max{
-						aux = pancakes[j]/2
-						aux2 = (pancakes[j]/2)+(pancakes[j]%2)
-						pancakes[j] = aux
-						pancakes = append(pancakes, aux2)
-						min++
-						sort.Ints(pancakes)
-					}
-				}
-			}
-
+				if pancakes[j] != 1 && pancakes[j] == max{
+					aux = pancakes[j]/2//Split of the value
+					aux2 = (pancakes[j]/2)+(pancakes[j]%2)//Split the value and add in case it has a division waste
+					pancakes[j] = aux
+					pancakes = append(pancakes, aux2)
+					min++
+					sort.Ints(pancakes)
+				}//End of If
+			}//End of For
 		}
 		sort.Ints(pancakes)
-		times = append(times, min+max)
+		times = append(times, min+max)//Adds maximun time to the slice
 	}
 	sort.Ints(times)
 	minutes = times[0]
