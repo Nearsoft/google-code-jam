@@ -22,17 +22,18 @@ defmodule FileManager do
   end
 
   def writeFile(list) do
+   
     case is_list(list) do
       true -> stringToWrite = list |> Enum.join ("\n")
-
-      case File.write("results.txt", stringToWrite)  do
-        :ok -> case File.cwd()  do
-          {:ok, cwd} -> "Saved results to #{cwd}/results.txt"
+        case File.write("results.txt", stringToWrite)  do
+          :ok -> case File.cwd()  do
+            {:ok, cwd} -> "Saved results to #{cwd}/results.txt"
+            {:error, reason} -> "Failed to save. Error #{reason}"
+          end
           {:error, reason} -> "Failed to save. Error #{reason}"
         end
-      {:error, reason} -> "Failed to save. Error #{reason}"
-      end
       false -> "Cannot write file, did you pass a list?"
     end
   end
+  
 end
