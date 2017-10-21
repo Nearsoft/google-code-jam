@@ -11,11 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-
         String result = "";
         try {
 
-            BufferedReader reader = new BufferedReader(new FileReader("/home/miguel/Downloads/B-small-practice.in"));
+            BufferedReader reader = new BufferedReader(new FileReader("/home/miguel/Downloads/B-small-practice.in"));//This must change as the rute changes
             String line = reader.readLine();
             int t=0; // t = total cases
             String s=null;
@@ -25,9 +24,7 @@ public class Main {
             if(t>=1 && t<=100){ //verify that the input is on the limit of the program
 
                 for(int i=0; i<t && line != null; i++){
-
                     line = reader.readLine();
-
                     String xcase = reader.readLine();
                     s= xcase;
                     result+="Case #"+(i+1)+": "+result(s)+"\n";
@@ -43,6 +40,11 @@ public class Main {
 
     }
 
+    /*
+    *This method does "solves" the problem, as it makes the necessary operations with the data
+    *@Param plat String is the received value to make all the operations and solve the problem
+    * @return aux3 This is used as the final solution to this test
+     */
     public static int result(String plat) {
         int min = 0;
         int aux = 0, aux2 = 0,aux3 = 0;
@@ -68,8 +70,7 @@ public class Main {
             if (minTot <= max) {
 
                     for (int j = 0; j < p.size(); j++) {
-                        if (p.get(j) != 1) {
-                            if (p.get(j) == max) {
+                        if (p.get(j) != 1 && p.get(j) == max) {
                                 if (p.get(j) % 2 != 0) {
                                     aux = p.get(j) / 2;
                                     aux2 = (p.get(j) / 2) + 1;
@@ -90,7 +91,6 @@ public class Main {
                                     minuts.add(min);
                                     Collections.sort(p);
                                 }
-                            }
                         }
                     }
             }
