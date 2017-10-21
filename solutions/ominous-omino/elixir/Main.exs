@@ -1,17 +1,19 @@
 Code.require_file "FileManager.exs", __DIR__
 
 defmodule Mainominous do
-    
+    #Call the FileManager for choose a file
     def getFileName do
         IO.gets("Enter test file name: ")
         |> getInput
     end
 
+    #Call the File Manager for choose a name of file and read
     def getInput(fileName) do
          fileName
         |> FileManager.readFile
     end
 
+    #Call to evaluate the input and split the large string into litle content of the string
     def evaluate_input do
 
         input = Mainominous.getFileName
@@ -33,6 +35,7 @@ defmodule Mainominous do
         FileManager.writeFile(result)
     end
 
+    #Evaluate the case for Gabriel
     def evaluate_case(testCase, counter) do
         winner = "GABRIEL"
         area = 0 
