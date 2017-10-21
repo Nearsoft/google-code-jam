@@ -39,7 +39,7 @@ defmodule Mainominous do
     def evaluate_case(testCase, counter) do
         winner = "GABRIEL"
         area = 0 
-
+        #check the case when go to the repeat and when is doesn't
         case !testCase == ""  do
           true -> cond do
             counter < 3 && String.at(testCase, 0) == String.at(weExpect,counter) ->
@@ -50,7 +50,7 @@ defmodule Mainominous do
             end
               xy = Mainominous.getFirstElements(testCase)
               Mainominous.evaluate_case(String.replace_prefix(testCase, xy, counter)
-          true ->
+          true -> # I think that missed a case WIP
             if testCase == "1" do
               Mainominous.evaluate_case("", counter)
             end
@@ -71,6 +71,7 @@ defmodule Mainominous do
         end
     end
 
+    #The method who say if the xnomino is in the are for some filters
     def perfectPieceExist(xomino, rows, columns) do
       length = xomino
       height = 1
@@ -107,4 +108,5 @@ defmodule Mainominous do
 
 
 end
+#the first call to the program
 Mainominous.evaluate_input
