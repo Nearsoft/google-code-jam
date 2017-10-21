@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 
@@ -16,10 +15,10 @@ public class Main {
         String result = "";
         try {
 
-            BufferedReader reader = new BufferedReader(new FileReader("/home/ocrisostomo/Downloads/B-large-practice.in"));
+            BufferedReader reader = new BufferedReader(new FileReader("/home/miguel/Downloads/B-small-practice.in"));
             String line = reader.readLine();
             int t=0; // t = total cases
-            String s=null,sMax=null,sa=null;
+            String s=null;
             if(line != null){
                 t = Integer.parseInt(line.trim());
             }
@@ -30,13 +29,7 @@ public class Main {
                     line = reader.readLine();
 
                     String xcase = reader.readLine();
-                    //String xcase[]= reader.readLine().split("");
                     s= xcase;
-                    //sMax=xcase[1];
-                    //String plates[]=s.split("");
-                   // System.out.println(s);
-
-                    //System.out.println(sMax);
                     result+="Case #"+(i+1)+": "+result(s)+"\n";
                 }
             }else{ // if t is off the limits then we put an error
@@ -48,49 +41,23 @@ public class Main {
 
         System.out.println(result);
 
-
-
-
-
-
-
-
-
-/*
-        Scanner sc = new Scanner(System.in);
-        Main obj = new Main();
-        int t = 0; //number of cases
-        t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            System.out.println("Case #"+(i+1)+": "+obj.result());
-        }*/
     }
 
     public static int result(String plat) {
         int min = 0;
         int aux = 0, aux2 = 0,aux3 = 0;
         int minTot = 0;
-       // Scanner sc = new Scanner(System.in);
-        //int d = 0; //dinners
         List<Integer> p = new ArrayList<Integer>();// cupcakes per dinner
         List<Integer> minuts = new ArrayList<Integer>();
         List<Integer> maxs = new ArrayList<Integer>();
-        String pi;// array with number of cupcake for each dinner
-        //d = Integer.valueOf(sc.next());//input the dinners
-        //pi = new Scanner(System.in).nextLine();
-        //String plates[] = pi.split(" ");
         String plates[] = plat.split(" ");
         int max = 0;
-        int si=0;
-
-
 
         for (int i = 0; i < plates.length; i++) {
             p.add(Integer.valueOf(plates[i]));
         }
 
         Collections.sort(p);
-        si=p.size();
         max = p.get(p.size() - 1);
         maxs.add(max);
         minuts.add(min);
