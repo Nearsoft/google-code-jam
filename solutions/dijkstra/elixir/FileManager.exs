@@ -1,9 +1,14 @@
+# To import this code use
+# Code.require_file "FileManager.exs", __DIR__
+# at the beging of file
+
 defmodule FileManager do
 
   def readFile (file)do
-    case File.read(file) do
+    case File.read(file |> String.trim ) do
       {:ok, body}      -> body |> toList #do something with the body
-      {:error, reason} -> "Failed to open file, error: #{reason}"# handle the error caused by `reason`
+      {:error, reason} -> IO.puts "Failed to open file, error: #{reason}; exiting"
+      exit(:shutdown)# handle the error caused by `reason`
     end
   end
 
@@ -25,17 +30,17 @@ defmodule FileManager do
     case is_list(list) do
 
     true ->
-    stringToWrite = list |> Enum.join ("\n")
+    stringToWrite = list |> Enum.join("\n")
 
     case File.write("results.txt", stringToWrite)  do
       :ok -> case File.cwd()  do
-        {:ok, cwd} -> "Saved results to #{cwd}/results.txt"
-        {:error, reason} -> "Failed to save. Error #{reason}"
+        {:ok, cwd} -> IO.puts "Saved results to #{cwd}/results.txt"
+        {:error, reason} -> IO.puts "Failed to save. Error #{reason}"
       end
 
-      {:error, reason} -> "Failed to save. Error #{reason}"
+      {:error, reason} ->IO.puts "Failed to save. Error #{reason}"
     end
-    false -> "Cannot write file, did you pass a list?"
+    false -> IO.puts "Cannot write file, did you pass a list?"
   end
   end
 end

@@ -17,24 +17,33 @@ defmodule Dijkstra do
      |> FileManager.readFile
   end
 
+  def hola do
+    input = Dijkstra.getFileName
+    IO.puts(input)
+  end
+
   def evaluate_input do
     input = Dijkstra.getFileName
 
     {t, input} = input |> List.pop_at(0)
     t = t |> String.to_integer()
-    result = ""
+    result = []
     i = 0
-    if t == length(input) do
+    if t == length(input)/2 do
       input = Enum.chunk_every(input, 2)
       Enum.each input, fn(testCase) ->
         i = i+1
+        IO.puts(i)
         l = testCase |> Enum.at(0) |> String.split(" ") |> Enum.at(0) |> String.to_integer
         x = testCase |> Enum.at(0) |> String.split(" ") |> Enum.at(1) |> String.to_integer
-        if l == length(Enum.at(testCase, 1)) do
-          result <> "Case ##{i}: #{Dijkstra.dijkstra(Dijkstra.getLX(Enum.at(testCase,1),x))}\n"
+        IO.puts(Enum.at(testCase, 1))
+        if l == String.length(Enum.at(testCase, 1)) do
+          result= result ++ ["Case ##{i}: #{Dijkstra.dijkstra(Dijkstra.getLX(Enum.at(testCase,1),x),0)}\n"]
+          IO.puts(result)
         else
           IO.puts "Error: the test case is not the size that was given"
         end
+      end
     else
       IO.puts "Error: The number of test cases given is wrong"
     end
@@ -44,7 +53,7 @@ defmodule Dijkstra do
 
   def getLX(l,x) do
     if x > 24 do
-      x = x%4+24
+      x = rem(x,4)+24
     end
     lx = String.duplicate(l, x)
   end
@@ -71,7 +80,6 @@ defmodule Dijkstra do
             else
               "NO"
             end
-          end
     end
   end
 
