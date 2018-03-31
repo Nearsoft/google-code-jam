@@ -5,25 +5,26 @@ import (
     "bufio"
     "os"
 	  "bytes"
-_    "strings"
+    "strings"
     "strconv"
     "log"
-  _  "io"
+    "io"
+    "math"
 )
 
-  var tests, checkAt int
+  var tests int
 	var smax, t bytes.Buffer
   var text = ""
   var testNum = ""
 
   var diners int
   var pancakes string
-  var minutes=0  //minutes gone by
-
+  var minutes = 0  //minutes gone by
+  var outNum = 0
   var runeAsString bytes.Buffer
 
 func main(){
-      lines, err := readLines("small.in")
+      lines, err := readLines("large.in")
       if err != nil {
       log.Fatalf("readLines: %s", err)
       }
@@ -36,9 +37,9 @@ func main(){
         }
       }
 
-    //  inDiners   := make([]int, tests)
 
-    //  out        := make([]int, te
+
+      out := make([]int, 1000)
       for i, line := range lines {
           if(i == 0){
             //do nothing
@@ -65,75 +66,67 @@ func main(){
                   inPancakes[pNum] = getInt(runeAsString.String())
                   pNum++
                   runeAsString.Reset()
-                }
-            }
-            //  out[n] = waiter(diners, inPancakes[n])
+                  }
+              }
+              out[outNum] = waiter(diners, inPancakes)
+              outNum++
           }
 
         }
 
-
-
         //creates output file
-        /*
+
         fo, _ := os.Create("results.txt")
+
         var s, nAsText, outAsText string
+
         for n := 0; n < tests; n++{
           nAsText = strconv.Itoa(n+1)
           outAsText = strconv.Itoa(out[n])
           s = "Case #" + nAsText + ": " + outAsText + "\r\n"
       	  _, _ = io.Copy(fo, strings.NewReader(s))
-        }*/
-}
-
-func waiter(diners int, pancakes string){
-
-
-
-}
-
-
-
-
-
-func getSMax(text string)(checkAt int){
-   for i := 0; i < len((text)) ; i++ {
-
-        if( text[i] != ' '){
-          runes := []rune(text)
-          smax.WriteString(string(runes[i]))
-          checkAt = i+1
-        } else{
-          checkAt = i+1
-          return
         }
-    }
-    return
-  //  fmt.Println(smax.String())
+
 }
-/*
-func peopleStanding(inputText string, inputCheckAt int)(friendsInvited int){
-    friendsInvited = 0
-    standing = 0
-    sLevel = 0
-    runes := []rune(inputText)
-    caseNumber++
-    for i := inputCheckAt; i < len((inputText)) ; i++ {
-        if(i == inputCheckAt || getInt(string(runes[i])) == 0){
-        standing += getInt(string(runes[i]))
-        sLevel++
-        } else if(standing >= sLevel){
-        standing += getInt(string(runes[i]))
-        sLevel++
-        } else{
-        friendsInvited += sLevel - standing
-        standing += (sLevel + getInt(string(runes[i])) - standing)
-        sLevel++
+
+
+func waiter(diners int, pancakes []int)(minutes int){ //array
+      minsArray := make([]int, 1001)
+
+      max := pancakes[0] //the maximum number of pancakes
+      for _, e := range pancakes {
+          if e > max {
+              max = e
+          }
+      }
+
+      minsArray[0] = max // the minutes its gonna take if no pancakes
+      // are moved
+
+      for i := 1 ; i <= 1000 ; i++ { //from 1 minute to 1000 (max)
+        split := 0.0 //pancakes on one plate being split
+
+        var v float64
+        for _, pancake := range pancakes{
+            if(pancake > i){ //if the pancakes on the plate are more than the time{
+              v = (float64(pancake) / float64(i))
+              split += math.Ceil(v) -1
+            }
         }
-    }
-    return
+
+          minsArray[i] = int(split) + i
+        }
+
+        min := minsArray[0] //get the smallest minutes
+        for _, e := range minsArray {
+            if e < min {
+                min = e
+            }
+        }
+
+        return  min
 }
-*/
+
 func getInt(x string) (y int){
   y, err := strconv.Atoi(x)
      if err != nil {
