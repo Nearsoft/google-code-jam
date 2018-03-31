@@ -1,68 +1,69 @@
 import java.io.*;
 import java.util.*;
+import java.io.PrintWriter;
 public class StandingOvation{
 	public static void main(String arg[]){
 		new StandingOvation();
 	}
 	
 	public StandingOvation(){
-		String data[] = ReadFile("A-large-practice.in");
-		/*Scanner miScanner = new Scanner(System.in);
-		
-		System.out.print("Tests: ");
-		int tests = Integer.parseInt(miScanner.nextLine());*/
+		WriteFile("small-output.txt",outputString("A-small-practice.in"));
+		WriteFile("large-output.txt",outputString("A-large-practice.in"));
+	}
+
+	public ArrayList<String> outputString(String file){
+		String data[] = ReadFile(file);
 
 		int tests = Integer.parseInt(data[0]);
-		
+		ArrayList<String> outputString = new ArrayList<String>();
 		for(int i=0;i<tests;i++){
 			String input = data[i+1];
 			int Smax = Integer.parseInt(input.split(" ")[0]);
 			String people = input.split(" ")[1];
-			test(i+1,Smax,people);
+			outputString.add(test(i+1,Smax,people));
 		}
+
+		return outputString;
+	}
+
+	public void WriteFile(String name, ArrayList<String> outputString){
+		try{
+			PrintWriter out = new PrintWriter(new File(name));
+			for(String s:outputString){
+				//System.out.println(s);
+				out.write(s);
+				out.println();
+			}
+			out.close();
+		}catch(FileNotFoundException e){}
 	}
 	
-	public void test(int numberOfCase, int Smax, String people){
-		/*Scanner miScanner2 = new Scanner(System.in);
-		System.out.print("input: ");
-		String input = miScanner2.nextLine();
-
-		int Smax = Integer.parseInt(input.split(" ")[0]);
-		String people = input.split(" ")[1];*/
-		//System.out.println("people: "+people);
+	public String test(int numberOfCase, int Smax, String people){
 
 		if(Smax!=people.length()-1){
 			System.out.println("Invalid data!");
-			return;
+			return "";
 		}
 		
 		int standingPeople = 0;
 		int invited = 0;
 		
 		for(int i=0;i<people.length();i++){
-			//System.out.println("Shyness lvl: "+i);
 			int numberOfPeople = Integer.parseInt(people.charAt(i)+"");
-			
-			//System.out.println("people: "+numberOfPeople);
-			//System.out.println("standing people: "+standingPeople);
 			
 			if(numberOfPeople>0){
 				if(i<=standingPeople){
-					//System.out.println("Se levantan "+numberOfPeople);
 					standingPeople += numberOfPeople;
 				}
 				else{
 					invited += i-standingPeople;
-					//System.out.println("Invito a "+(i-standingPeople));
-					//System.out.println("Se levantan "+(numberOfPeople+i-standingPeople));
 					standingPeople += numberOfPeople+i-standingPeople;
 				}
 			}
-				
-			//System.out.println("===================");
 		}
-		
-		System.out.println("Case #"+numberOfCase+": "+invited);
+		String s = "Case #"+numberOfCase+": "+invited;
+		//System.out.println(s);
+		return s;
 	}
 
 	public String[] ReadFile(String fileName){
