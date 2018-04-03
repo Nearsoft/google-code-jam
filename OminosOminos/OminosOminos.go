@@ -2,54 +2,129 @@ package main
 
 import (
 	"fmt"
+	"bufio"
+    "os"
+	"strings"
+	"bytes"
+    "strconv"
+    "log"
+	"io"
 )
+
+var tests, checkAt int
+var testNum = ""
+var runeAsString bytes.Buffer
+var X bytes.Buffer
+var R bytes.Buffer
+var C bytes.Buffer
 
 func main(){
 	OminoTest()
 }
 
 func OminoTest(){
-	fmt.Println("Tests:")
-	var number int
-	_, err := fmt.Scanf("%d", &number)
+	lines, err := readLines("D-large-practice.in")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("readLines: %s", err)
 	}
 
-	for i := 0; i < number; i++{
-		test(i+1)
+	for i, line := range lines {
+		if(i == 0){
+			testNum = line
+			tests = getInt(testNum)
+			break
+		}
 	}
-}
 
-func test(numberOfCases int){
+	values := make([]int, 3)
+	var n int
+	m := 0
+	out := make([]string, tests)
 
-	fmt.Println("Enter X value:")
-	var X int
-	_, err := fmt.Scanf("%d", &X)
-	if err != nil {
-		fmt.Println(err)
+	for i, line := range lines{
+		if(i != 0){
+			runes := []rune(line)
+			n = 0
+			for x := 0 ; x < len(line) ; x++{
+				if(x == len(line) - 1){
+					runeAsString.WriteString(string(runes[x]))
+					values[n] = getInt(runeAsString.String())
+					runeAsString.Reset()
+				}else if(line[x] != ' '){
+					runeAsString.WriteString(string(runes[x]))
+				} else {
+					values[n] = getInt(runeAsString.String())
+					n++
+					runeAsString.Reset()
+				}
+			}
+			out[m] = OminoGame(values[0], values[1], values[2], m + 1) 
+			m++
+		}
+	}
+
+
+	fo, _ := os.Create("large-output.txt")
+
+	var s, nAsText, outAsText string
+
+	for n := 0; n < tests; n++{
+		nAsText = strconv.Itoa(n+1)
+		outAsText = out[n]
+		s = "Case #" + nAsText + ": " + outAsText + "\r\n"
+		_, _ = io.Copy(fo, strings.NewReader(s))
 	}
 
 	
-
-	fmt.Println("Enter number of rows:")
-	var R int
-	_, err2 := fmt.Scanf("%d", &R)
-	if err2 != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println("Enter number of columns:")
-	var C int
-	_, err3 := fmt.Scanf("%d", &C)
-	if err3 != nil {
-		fmt.Println(err)
-	}
-
-	OminoGame(X, R, C, numberOfCases)
 }
 
-func OminoGame(X int, R int, C int, numberOfCases int){
+func getInt(x string) (y int){
+	y, err := strconv.Atoi(x)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	return
+}
+  
+func readLines(path string) ([]string, error) {
+	file, err := os.Open(path)
+	if err != nil {
+	  return nil, err
+	}
+	
+	defer file.Close()
+  
+	var lines []string
+	scanner := bufio.NewScanner(file)
+	
+	for scanner.Scan() {
+	  lines = append(lines, scanner.Text())
+	}
+	
+	return lines, scanner.Err()
+  }
+
+func getXRC (text string){
+	for i := 0; i < len((text)) ; i++ {
+ 
+		if( text[i] != ' '){
+			runes := []rune(text)
+			X.WriteString(string(runes[i]))
+			if( i > 0 && text[i - 1] == ' '){
+				runes := []rune(text)
+				R.WriteString(string(runes[i]))
+				if( i > 0 && text[i - 1] == ' '){
+					runes := []rune(text)
+					C.WriteString(string(runes[i]))
+				}
+			}
+		}
+	 }
+	 return
+ }
+
+func OminoGame(X int, R int, C int, numberOfCases int) (winner string){
 	firstIndicator := 7
 	secondIndicator := ((R * C) % X)
 	thirdIndicator := X
@@ -61,23 +136,38 @@ func OminoGame(X int, R int, C int, numberOfCases int){
 		fourthIndicator = (X / 2) + 1
 	}
 
-	winner := "RICHARD"
+	fifthIndicator := thirdIndicator * fourthIndicator;
+
+	winner = "RICHARD"
 
 	if X < firstIndicator {
 		if secondIndicator == 0 {
 			if R >= thirdIndicator || C >= thirdIndicator {
 				if R >= thirdIndicator {
 					if C >= fourthIndicator {
-						winner = "GABRIEL"
+						if( X > 3 ) {
+							if(((R * C) - fifthIndicator) != 0 && ((R * C) - fifthIndicator) % X == 0 && C > (X / 2) ) {
+								winner = "GABRIEL"
+							}
+						} else {
+							winner = "GABRIEL"
+						}
 					}
 				}
 				if C >= thirdIndicator {
 					if R >= fourthIndicator {
-						winner = "GABRIEL"
+						if( X > 3 ) {
+							if(((R * C) - fifthIndicator) != 0 && ((R * C) - fifthIndicator) % X == 0 && R > (X / 2) ) {
+								winner = "GABRIEL"
+							}
+						} else {
+							winner = "GABRIEL"
+						}
 					}
 				}
 			}
 		}
 	}
-	fmt.Println("Case #", numberOfCases, ": ", winner)
+	//fmt.Println("Case #", numberOfCases, ": ", winner)
+	return
 }
