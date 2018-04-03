@@ -47,7 +47,7 @@ public class Ominoes {
 		}
 		R = Integer.parseInt(rString);
 
-		int thirdStart= 0;
+		//int thirdStart= 0;
 		
 		for(int i= firstStart + secondStart + 2; i<input.length(); i++){
 			if((input.charAt(i)+"").equals(" "))
@@ -55,7 +55,7 @@ public class Ominoes {
 			else
 				cString += input.charAt(i);
 
-			thirdStart++;
+			//thirdStart++;
 		}
 		C = Integer.parseInt(cString);
 		OminoGame(X, R, C, numberOfCases);
@@ -85,9 +85,11 @@ public class Ominoes {
 		int fourthIndicator;
 		
 		if(X%2 == 0)
-			fourthIndicator = X / 2;
+			fourthIndicator = (X / 2);
 		else
 			fourthIndicator = (X / 2) + 1;
+		
+		int fifthIndicator = thirdIndicator * fourthIndicator;
 		
 		String winner = "RICHARD";
 		
@@ -96,12 +98,28 @@ public class Ominoes {
 				if(R >= thirdIndicator || C >= thirdIndicator) {
 					if(R >= thirdIndicator) {
 						if(C >= fourthIndicator) {
-							winner = "GABRIEL";
+							if( X > 3 ) {
+								if(((R * C) - fifthIndicator) != 0 && ((R * C) - fifthIndicator) % X == 0
+										&& C > (X / 2) ) {
+									winner = "GABRIEL";
+								}
+							}
+							else {
+								winner = "GABRIEL";
+							}
 						}
 					}
 					if(C >= thirdIndicator) {
 						if(R >= fourthIndicator) {
-							winner = "GABRIEL";
+							if( X > 3 ) {
+								if(((R * C) - fifthIndicator) != 0 && ((R * C) - fifthIndicator) % X == 0
+										&& R > (X / 2) ) {
+									winner = "GABRIEL";
+								}
+							}
+							else {
+								winner = "GABRIEL";
+							}
 						}
 					}
 				}
