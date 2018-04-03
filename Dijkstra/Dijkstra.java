@@ -35,21 +35,18 @@ public class Dijkstra{
             }
 
             if(!reduceWordTo1(word).equals("-1")) System.out.println("Case #" + numberOfCase + ": NO");
-            else if(seekijk(word)) System.out.println("Case #" + numberOfCase + ": YES");
+            else if(seekij(word)) System.out.println("Case #" + numberOfCase + ": YES");
             else System.out.println("Case #" + numberOfCase + ": NO");
         }
     }
-
-    public boolean seekijk(String word) {
+    public boolean seekij(String word) {
                 
         String tmpi = "1";
         String tmpj = "1";
-        String tmpk = "1";
         String[] splitted = word.split("");
 
         int i = 0;
         int j = 0;
-        int k = 0;
         
         while(i < word.length()) {
             
@@ -64,29 +61,19 @@ public class Dijkstra{
                     tmpj = quaternionMult(tmpj, splitted[j]);
 
                     if (tmpj.equals("j")) {
-
-                        k = j + 1;
-                        
-                        while(k < word.length()) {
-            
-                            tmpk = quaternionMult(tmpk, splitted[k]);
-
-                            if (tmpk.equals("k")) {
-                                return true;
-                            }
-                            k++;
-                        }
+                            return true;
                     }
                     j++;
                 }
             }
             i++;
+
         }
-        
         return false;
+        
     }
     
-    
+
     public String reduceWordTo1(String word) {
 
         // Split the input string char by char
