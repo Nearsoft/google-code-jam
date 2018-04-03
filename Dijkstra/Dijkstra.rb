@@ -1,15 +1,14 @@
 #!/usr/bin/env ruby
 
-def seekijk(word)
+def seekij(word)
     tmpi = "1";
     tmpj = "1";
-    tmpk = "1";    
+
     splitted = word.split("");
     
     i = 0;
     j = 0;
-    k = 0;
-    
+
     wl = word.length
     
     while i < wl
@@ -25,18 +24,7 @@ def seekijk(word)
                 tmpj = quaternionMult(tmpj, splitted[j])
 
                 if tmpj.eql? "j"
-
-                    k = j + 1;
-                        
-                    while k < wl
-            
-                        tmpk = quaternionMult(tmpk, splitted[k])
-
-                        if tmpk.eql? "k"
-                            return true
-                        end
-                        k += 1
-                    end
+                    return true
                 end
                 j += 1
             end
@@ -87,18 +75,11 @@ end
 
 def test(case_number)
     
-#    puts "Show me the L and X"
     input1 = gets.chomp.split(" ") 
     l = input1[0].to_i
     x = input1[1].to_i
 
-#    puts "Show me the String"
     input2 = gets.chomp
-    
-    if input2.length != l
-#        puts "I cannot take any more of this, Captain!"
-        exit
-    end
     
     word = ""
     
@@ -108,7 +89,7 @@ def test(case_number)
     
     if !(reduceWordTo1(word).eql?("-1"))
         puts "Case ##{case_number}: NO"
-    elsif seekijk(word)
+    elsif seekij(word)
         puts "Case ##{case_number}: YES"
     else
         puts "Case ##{case_number}: NO"
