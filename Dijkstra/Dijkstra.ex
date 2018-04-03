@@ -2,6 +2,7 @@ defmodule M do
 
   def main do
     read("small-output.txt","C-small-practice.in")
+    #read("large-output.txt","C-large-practice.in")
   end
 
   def algorithm(w,n) do
@@ -35,33 +36,34 @@ defmodule M do
             if j<length(arrIndexj) and j>-1 do
               accj = mult(accj,getIndex(x))
               #IO.puts "acc #{getValue(accj)}"
-              if accj == getIndex("j") do
+              if accj == getIndex("j") and ijk == "-1"do
                 #IO.puts "Encontre la j. DETENTE"
-
-                arrk = Enum.take(arrj,j-length(arrj)+1)
-                arrIndexk = arrk |> Enum.with_index
-                z = Enum.reduce_while(arrIndexk,0,fn({x,k},acck)->
-                  if k<length(arrIndexk) and k>-1 do
-                    acck = mult(acck,getIndex(x))
-                    #IO.puts "acc #{getValue(acck)}"
-                    if acck == getIndex("k") and length(Enum.take(arrj,k-length(arrk)+1))==0 do
-                      #IO.puts "Encontre la k. DETENTE"
-                      {:halt,-1}
-                    else
-                      {:cont,acck}
-                    end
-                  end
-                end)
-
-                if z==-1 do
                 {:halt,-1}
-              else
-                {:cont,accj}
-              end
+
+              #   arrk = Enum.take(arrj,j-length(arrj)+1)
+              #   arrIndexk = arrk |> Enum.with_index
+              #   z = Enum.reduce_while(arrIndexk,0,fn({x,k},acck)->
+              #     if k<length(arrIndexk) and k>-1 do
+              #       acck = mult(acck,getIndex(x))
+              #       #IO.puts "acc #{getValue(acck)}"
+              #       if acck == getIndex("k") and length(Enum.take(arrj,k-length(arrk)+1))==0 do
+              #         #IO.puts "Encontre la k. DETENTE"
+              #         {:halt,-1}
+              #       else
+              #         {:cont,acck}
+              #       end
+              #     end
+              #   end)
+              #
+              #   if z==-1 do
+              #   {:halt,-1}
+              # else
+              #   {:cont,accj}
+              # end
             else
               {:cont,accj}
             end
-            end
+          end
           end)
 
           #IO.puts "y = #{y}"
