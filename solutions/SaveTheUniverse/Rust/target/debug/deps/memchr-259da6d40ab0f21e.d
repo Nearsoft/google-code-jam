@@ -1,0 +1,11 @@
+/home/nsl-cvillalobos/VS Code/google-code-jam/solutions/SaveTheUniverse/Rust/target/debug/deps/memchr-259da6d40ab0f21e.rmeta: /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/lib.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/fallback.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/iter.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/naive.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/mod.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/avx.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/sse2.rs
+
+/home/nsl-cvillalobos/VS Code/google-code-jam/solutions/SaveTheUniverse/Rust/target/debug/deps/memchr-259da6d40ab0f21e.d: /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/lib.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/fallback.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/iter.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/naive.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/mod.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/avx.rs /home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/sse2.rs
+
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/lib.rs:
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/fallback.rs:
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/iter.rs:
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/naive.rs:
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/mod.rs:
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/avx.rs:
+/home/nsl-cvillalobos/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/x86/sse2.rs:
