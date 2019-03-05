@@ -27,8 +27,7 @@ fn main() {
                 break;
             }
         }
-        let split = inp.split(" ");
-        let vec = split.collect::<Vec<&str>>();
+        let vec = inp.split(" ").collect::<Vec<&str>>();
         println!("Shield power: {}", vec[0]);
         println!("Attack pattern: {}", vec[1]);
         let d = vec[0].parse::<i32>().unwrap();
@@ -42,8 +41,8 @@ fn main() {
             if ta<=d {
                 break;
             }
-            let mut temp1 = 'N';
-            let mut temp2 = 'M';
+            let mut temp1;
+            let mut temp2;
             let mut ch_search = 1;
             loop{
                 println!("ch_search: {}", ch_search);
