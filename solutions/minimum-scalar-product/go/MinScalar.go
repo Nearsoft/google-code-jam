@@ -1,78 +1,85 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"log"
-	"os"
-	"sort"
-	"strconv"
-	"strings"
-)
+import "fmt"
+import "strconv"
+import "strings"
+import "sort"
+import "bufio"
+import "log"
+import "os"
 
-// readLines reads a whole file into memory
-// and returns a slice of its lines.
 func readLines(path string) ([]string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
+  file, err := os.Open(path)
+  if err != nil {
+    return nil, err
+  }
+  defer file.Close()
 
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
+  var lines []string
+  scanner := bufio.NewScanner(file)
+  for scanner.Scan() {
+    lines = append(lines, scanner.Text())
+  }
+  return lines, scanner.Err()
 }
 
-// writeLines writes the lines to the given file.
 func writeLines(lines []string, path string) error {
-	file, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
+  file, err := os.Create(path)
+  if err != nil {
+    return err
+  }
+  defer file.Close()
 
-	w := bufio.NewWriter(file)
-	for _, line := range lines {
-		fmt.Fprintln(w, line)
-	}
-	return w.Flush()
+  w := bufio.NewWriter(file)
+  for _, line := range lines {
+    fmt.Fprintln(w, line)
+  }
+  return w.Flush()
 }
 
 func main() {
-	filename := "A-small-practice.in"
-	lines, err := readLines(filename)
-	if err != nil {
-		log.Fatalf("readLines: %s", err)
-	}
 
-	testCases, _ := strconv.Atoi(lines[0])
-	var s []string
+    input, err := readLines("A-small-practice-minimum.in")
+    if err != nil {
+      log.Fatalf("readLines: %s", err)
+      return
+    }
 
-	for i := 1; i < testCases*3; i += 3 {
-		var v1 []string = strings.Split(lines[i+1], " ")
-		var v2 []string = strings.Split(lines[i+2], " ")
-		var v1i, v2i []int
-		ans := 0
-		tmpLen, _ := strconv.Atoi(lines[i])
-		for j := 0; j < tmpLen; j++ {
-			tmp, _ := strconv.Atoi(v1[j])
-			v1i = append(v1i, tmp)
-			tmp, _ = strconv.Atoi(v2[j])
-			v2i = append(v2i, tmp)
-		}
-		sort.Sort(sort.IntSlice(v1i))
-		sort.Sort(sort.Reverse(sort.IntSlice(v2i)))
+    var numberOfVectors,_ =  strconv.Atoi(input[0])
+    var output []string
 
-		for j := 0; j < tmpLen; j++ {
-			ans += v1i[j] * v2i[j]
-		}
-		s = append(s, "Case #"+strconv.Itoa((i/3)+1)+": "+strconv.Itoa(ans))
+    for i := 0; i < numberOfVectors; i++ {
+        var elements,_ = strconv.Atoi(input[3 * i + 1])
+
+        var vector1 = order(createArrayFromString( input[3 * i + 2] ))
+        var vector2 = order(createArrayFromString( input[3 * i + 3] ))
+
+        var result = 0
+
+        for j := 0; j < elements; j++ {
+            result +=  vector1[j] * vector2[elements - j - 1]
+        }
+
+	var line = "Case #" + strconv.Itoa(i+1) + ": " + strconv.Itoa(result)
+	output = append(output, line)
+        fmt.Println(line)
+    }
+
+    writeLines(output, "output.txt")
+
+}
+
+func order(vector []int) []int {
+    sort.Ints(vector)
+    return vector
+}
+
+func createArrayFromString(str string) []int {
+	var arr = strings.Split(str, " ")
+	var arrInt []int
+	for i := 0; i < len(arr); i++ {
+		i,_ := strconv.Atoi(arr[i])
+		arrInt = append(arrInt, i)
 	}
-	if err := writeLines(s, "A-small-practice.out"); err != nil {
-		log.Fatalf("Error!", err)
-	}
+	return arrInt
 }
