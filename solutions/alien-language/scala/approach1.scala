@@ -21,7 +21,8 @@ object AlienLang {
       /*****************
       *  Magic
       ******************/
-      var solutions = tests.map(_.replace("(", "[")).map(_.replace(")", "]")).map((pattern) => dictionary.map((word) => matchStr(word, pattern)).sum.toString)
+      var solutions = tests.map(_.replace("(", "[")).map(_.replace(")", "]")).map((pattern) => dictionary.map((word) => 
+matchStr(word, pattern)).sum.toString)
       
       /*****************
       *  Output
