@@ -5,7 +5,8 @@ object HelloWorld {
   def main(args: Array[String]) {
     var linesTemp = io.Source.fromFile("A-large-practice.in").getLines.toList;
     var lines:MutableList[String] = MutableList(linesTemp:_*);
-    val writer = new PrintWriter(new File("file2.txt" ));
+    val writer = new PrintWriter(new File("file2.txt" ))
+    
     var parametersString = lines(0);
     var parametersList = parametersString.split(' ');
   	var wordsNumber = parametersList(1).toInt;
