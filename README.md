@@ -1,5 +1,3 @@
 # google-code-jam
 
-This repository shows reference solution for several google code jam problems. 
-
-test change from Alex Niebla
+This repository shows reference solution for several google code jam problems.
