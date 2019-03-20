@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class STUA {
+public class approach1 {
 
     public static void main(String[] args) {
         int T, D;
