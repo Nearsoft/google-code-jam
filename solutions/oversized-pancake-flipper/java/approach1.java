@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.List;
 import java.util.Objects;
 
-public class Flipper {
+public class approach1 {
     public static void main(String[] args) {
 
         PrintWriter writer = null;
