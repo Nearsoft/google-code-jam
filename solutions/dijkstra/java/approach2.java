@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Dijkstra{
+public class approach2{
     String[][] mult = {{"1", "i", "j", "k", "-1", "-i", "-j", "-k"},
             {"i", "-1", "k", "-j", "-i", "1", "-k", "j"},
             {"j", "-k", "-1", "i", "-j", "k", "1", "-i"},
