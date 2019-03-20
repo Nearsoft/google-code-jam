@@ -12,5 +12,5 @@ object Minimum {
 		var result = (vector1, vector2).zipped.map(_ * _).sum.toLong
 		println( "Case #" + (i+1) + ": " + result )
 	}
-   }
+ }
 }
