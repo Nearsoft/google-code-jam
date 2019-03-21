@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 
-public class Ominous
+public class approach2
 {
     static int N, R, C;
 

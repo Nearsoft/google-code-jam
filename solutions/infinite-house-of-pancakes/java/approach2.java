@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-public class Pancakes
+public class approach2
 {
     public static void main(String ... orange) throws Exception
     {
