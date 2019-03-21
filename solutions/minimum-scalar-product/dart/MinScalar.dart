@@ -1,28 +1,33 @@
 import 'dart:io';
 
-main() {
-  final filename = 'solution-large.txt';
-  var sink = new File(filename).openWrite();
+void main() {
 
-  new File('A-large-practice.in').readAsLines().then((List<String> lines) {
-    num testCases = int.parse(lines[0]);
-    
-    for(int i=1; i<=testCases*3; i+=3){
-      var v1 = lines[i+1].split(" "), v2 = lines[i+2].split(" ");
-      int v1i = [], v2i = [], scalarProd = 0;
+    new File('/home/francisco/dart/google/bin/A-small-practice-minimum.in').readAsLines().then((List<String> input) {
+       int numberOfVectors =  int.parse(input[0]);
 
-      for(int j = 0; j<int.parse(lines[i]); j++){
-        v1i.add(int.parse(v1[j]));
-        v2i.add(int.parse(v2[j]));
-      }
+       for (int i = 0; i < numberOfVectors; i++) {
+           int elements = int.parse(input[3 * i + 1]);
 
-      v1i.sort();
-      v2i.sort();
-      v2i = v2i.reversed.toList();
-      for(int j = 0; j<int.parse(lines[i]); j++){
-        scalarProd += v1i[j] * v2i[j];
-      }
-      sink.write("Case #${(i~/3)+1}: ${scalarProd}\n");
-    }
+           var vector1 = createArrayFromString( input[3 *i + 2] );
+           var vector2 = createArrayFromString( input[3 *i + 3] );
+
+           int result = 0;
+
+           for (int j = 0; j < elements; j++) {
+               result +=  vector1[j] * vector2[elements - j - 1];
+           }
+
+           print("Case #" + (i+1).toString() + ": " + result.toString());
+       }
   });
+}
+
+createArrayFromString(String str) {
+    var strArray = str.split(" ");
+    var intArray = [];
+    for (int i = 0; i < strArray.length; i++) {
+      intArray.add(int.parse(strArray[i]));
+    }
+    intArray.sort();
+    return intArray;
 }

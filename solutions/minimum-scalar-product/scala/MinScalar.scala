@@ -1,30 +1,16 @@
-/*
-*   @author  Manuel Valle
-*   @date    Febrero 2015
-*/
-import CodeJamIO._
+object Minimum {
 
-object MinScalar {
-   def dot (v1 : Array[Long], v2 : Array[Long]) : Long ={
-      require(v1.size == v2.size)
-      ((v1 zip v2).map{ Function.tupled(_ * _)}).sum
-   }
-
-  
    def main(args: Array[String]) {
-      /*****************
-      *  Input
-      ******************/
-      val vector_pairs = CodeJamIO.read("A-large-practice.in")
-      
-      /*****************
-      *  Magic
-      ******************/
-      var solutions = vector_pairs.map((pair) => dot(pair._1.sortWith(_ < _),pair._2.sortWith(_ > _)).toString)
-      
-      /*****************
-      *  Output
-      ******************/ 
-      CodeJamIO.write("A-large-practice.out", solutions.map(_.toString))
-   }
+
+	val input = io.Source.fromFile("A-small-practice-minimum.in").getLines.toList
+	var numberOfVectors =  input(0).toInt
+
+	for (i <- 0 to numberOfVectors - 1) {
+		var elements = input((3 * i + 1)).toInt
+		var vector1 = input((3 * i + 2)).split(" ").map(_.toLong).sorted
+		var vector2 = input((3 * i + 3)).split(" ").map(_.toLong).sorted.reverse
+		var result = (vector1, vector2).zipped.map(_ * _).sum.toLong
+		println( "Case #" + (i+1) + ": " + result )
+	}
+ }
 }
