@@ -1,9 +1,18 @@
 package com.company;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+public class approach3 {
+    public static void main(String[] args) {
+        StandingOvation standingOvation = new StandingOvation();
+        String input = standingOvation.readFile("A-large-practice.in");
+        String output = standingOvation.getResults(input);
+        System.out.print(output);
+    }
+}
+
 
 public class StandingOvation {
 
