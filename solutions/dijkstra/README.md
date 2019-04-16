@@ -3,14 +3,8 @@
 The Dutch computer scientist Edsger Dijkstra made many important contributions to the field, including the shortest path finding algorithm that bears his name. This problem is not about that algorithm.
 
 You were marked down one point on an algorithms exam for misspelling "Dijkstra" -- between D and stra, you wrote some number of characters, each of which was either i, j, or k. You are prepared to argue to get your point back using quaternions, an actual number system (extended from complex numbers) with the following multiplicative structure:
-_________________________
-|   |  1 |  i |  j |  k |
--------------------------
-| 1 |  1 |  i |  j |  k |
-| i |  i | -1 |  k | -j |
-| j |  j | -k | -1 |  i |
-| k |  k |  j | -i | -1 |
--------------------------
+
+![dijkstra](https://code.google.com/codejam/contest/images/?image=quatmult.png&p=5670465267826688&c=6224486)
 
 To multiply one quaternion by another, look at the row for the first quaternion and the column for the second quaternion. For example, to multiply i by j, look in the row for i and the column for j to find that the answer is k. To multiply j by i, look in the row for j and the column for i to find that the answer is -k.
 
