@@ -1,6 +1,5 @@
-#Go gopher
+# Go gopher
 
-Problem
 The Code Jam team has just purchased an orchard that is a two-dimensional matrix of cells of unprepared soil, with 1000 rows and 1000 columns. We plan to use this orchard to grow a variety of trees — AVL, binary, red-black, splay, and so on — so we need to prepare some of the cells by digging holes:
 
 In order to have enough trees to use for each year's tree problems, we need there to be at least A prepared cells.
