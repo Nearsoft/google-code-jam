@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class approach1 {
 
     //  private final GenericUserBasedRecommender recommender;
     int numberOfReviews;

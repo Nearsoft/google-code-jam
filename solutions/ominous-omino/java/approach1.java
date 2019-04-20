@@ -1,8 +1,8 @@
 import java.util.*;
 import java.io.*;
 
-public class OminousOmino {
-    public OminousOmino(){
+public class approach1 {
+    public approach1(){
     }
 
     public String evaluateInput(List<String> input){
@@ -93,7 +93,7 @@ public class OminousOmino {
 
 
     public static void main(String[] args) {
-        OminousOmino ovation = new OminousOmino();
+        approach1 ovation = new approach1();
         List<String> input = FileManager.readFile("input/");
         String result = ovation.evaluateInput(input);
         System.out.println(result);

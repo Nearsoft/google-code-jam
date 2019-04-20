@@ -2,7 +2,7 @@
 import java.awt.Point;
 import java.util.Scanner;
 
-public class Solution {
+public class approach1 {
 	static Scanner input;
 	public static void main(String[] args) {
 		input = new Scanner(System.in);

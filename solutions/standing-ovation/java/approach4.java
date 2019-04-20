@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Shyness
+public class approach4
 {
     //File Path
     private static final String pathFile = "C:/A-large-practice.in";

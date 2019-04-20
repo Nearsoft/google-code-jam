@@ -1,12 +1,12 @@
 import java.io.*;
 import java.util.*;
 import java.io.PrintWriter;
-public class StandingOvation{
+public class approach5{
 	public static void main(String arg[]){
-		new StandingOvation();
+		new approach5();
 	}
 	
-	public StandingOvation(){
+	public approach5(){
 		WriteFile("small-output.txt",outputString("A-small-practice.in"));
 		WriteFile("large-output.txt",outputString("A-large-practice.in"));
 	}

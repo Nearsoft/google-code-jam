@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Created by alan_bm@hotmail.com on 26/03/2017.
  */
-public class Ominos {
+public class approach4 {
 
 
     public static void main(String[] args) {

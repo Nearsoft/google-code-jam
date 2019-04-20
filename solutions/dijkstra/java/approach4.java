@@ -1,11 +1,9 @@
-package test;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class test {
+public class approach3 {
 
     static int [][]M =
     {
