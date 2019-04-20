@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public class Main {
+public class approach1 {
 
     private static final String FILENAME = "C:\\B-small-practice.in";
     private static final String RESULTNAME = "C:\\Result\\ResultSmall.out";

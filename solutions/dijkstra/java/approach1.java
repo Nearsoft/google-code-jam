@@ -1,10 +1,10 @@
 import java.util.HashMap;
 import java.util.List;
 
-public class Dijkstra {
+public class approach1 {
     private HashMap<String,String> multiplicationMatrix;
 
-    public Dijkstra(){
+    public approach1(){
         multiplicationMatrix = new HashMap<>();
         //Line 1 from the matrix
         multiplicationMatrix.put("11","1");
