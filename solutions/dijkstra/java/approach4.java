@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class approach3 {
+public class approach4 {
 
     static int [][]M =
     {
