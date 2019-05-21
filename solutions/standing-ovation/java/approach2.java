@@ -6,12 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FullOvation {
+public class approach2 {
     private int shyMax; // Maximum number of shyness level.
     private ArrayList<Integer> numPersons; // Number of persons with their respective shy level.
     private int numPeopleNeeded;
 
-    public FullOvation(int shyMax, ArrayList<Integer> numPersons) {
+    public approach2(int shyMax, ArrayList<Integer> numPersons) {
         this.shyMax = shyMax;
         this.numPersons = numPersons;
         this.numPeopleNeeded = 0;
@@ -47,7 +47,7 @@ public class FullOvation {
             String line;
             String[] data;
             ArrayList<Integer> numPeople = new ArrayList<Integer>();
-            FullOvation fullOvation = new FullOvation(0, new ArrayList<Integer>());
+            approach2 a2 = new approach2(0, new ArrayList<Integer>());
             BufferedWriter bw = new BufferedWriter(new FileWriter("output.out"));
 
             int T = Integer.parseInt(br.readLine()); // Number of test cases.
@@ -56,15 +56,15 @@ public class FullOvation {
             //while(T-- < 0) {
             while ((line = br.readLine()) != null) {
                 data = line.split(" ");
-                fullOvation.setShyMax(Integer.parseInt(data[0]));
+                a2.setShyMax(Integer.parseInt(data[0]));
                 data = data[1].split("");
                 for(String d : data)
                     numPeople.add(Integer.parseInt(d));
 
-                fullOvation.setNumPersons(numPeople);
+                a2.setNumPersons(numPeople);
 
-                fullOvation.calculateNumberOfFriends();
-                bw.write("Case #" + caseNumber + ": " +fullOvation.getNumPeopleNeeded() + "\n");
+                a2.calculateNumberOfFriends();
+                bw.write("Case #" + caseNumber + ": " +a2.getNumPeopleNeeded() + "\n");
 
                 caseNumber++;
                 numPeople.clear();

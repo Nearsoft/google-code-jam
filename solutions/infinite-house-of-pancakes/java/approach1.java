@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Main {
+public class approach1 {
 
     public static void main(String[] args) {
         // write your code here
