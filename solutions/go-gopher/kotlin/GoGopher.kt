@@ -8,7 +8,7 @@ var _Dim2 = 0
 
 fun main(args: Array<String>) {
     var t = Integer.valueOf(readLine())
-    for (z in 1..(t+1)) {
+    for (z in 1..t) {
         var a = Integer.valueOf(readLine())
         findSquareDimensions(a)
 
