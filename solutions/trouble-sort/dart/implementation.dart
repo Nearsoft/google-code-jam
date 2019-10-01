@@ -9,7 +9,7 @@ main() {
   String line = stdin.readLineSync();
   stringCase = line;
   var splitter = stringCase.split(" ");
-  List<BigInt> lint =splitter.map(BigInt.parse).toList();
+  List<int> lint =splitter.map(int.parse).toList();
   //print(lint);
   separateArray(lint);
   print("Case #${i}: ${checkSorted(lint)}");
@@ -18,8 +18,8 @@ main() {
 }
 
 separateArray(array){
-  List<BigInt> odds =[];
-  List<BigInt> evens=[]; 
+  List<int> odds =[];
+  List<int> evens=[]; 
   
   for(var i = 0; i<array.length; i++){
     if(i%2==0){
