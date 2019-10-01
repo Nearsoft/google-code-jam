@@ -1,41 +1,47 @@
 import 'dart:io';
-import 'dart:convert';
+
 main() {
   String stringCase;
-  List<String> results =[];
+  //List<String> results =[];
   int numberOfCases = int.parse(stdin.readLineSync());
   for (int i = 1; i <= numberOfCases; i++) {
   String size = stdin.readLineSync();
   String line = stdin.readLineSync();
   stringCase = line;
   var splitter = stringCase.split(" ");
-  List<int> lint =splitter.map(int.parse).toList();
-  troubleSort(lint);
-  results.add("CASE #$i: ${checkSorted(troubleSort(lint))}");
+  List<BigInt> lint =splitter.map(BigInt.parse).toList();
+  //print(lint);
+  separateArray(lint);
+  print("Case #${i}: ${checkSorted(lint)}");
+  }
   
-  }
-  for(var i = 0; i < results.length;i++){
-    print(results[i]);
-  }
 }
 
-troubleSort(paramArray){
-  var len = paramArray.length;
-  var swapped;
-  do{
-    swapped=false;
-    for(var i = 0; i< len-2;i++){
-      if(paramArray[i]>paramArray[i+2]){
-        var tmp = paramArray[i];
-        paramArray[i]=paramArray[i+2];
-        paramArray[i+2]=tmp;
-        swapped= true;
-      }
-    }
-  }while(swapped);
-  print(paramArray);
-  return paramArray;
+separateArray(array){
+  List<BigInt> odds =[];
+  List<BigInt> evens=[]; 
   
+  for(var i = 0; i<array.length; i++){
+    if(i%2==0){
+     evens.add(array[i]);
+    }
+    if(i%2!=0){
+      odds.add(array[i]);
+    }
+  }
+  evens = evens..sort();
+  odds = odds..sort();
+  var j=0,k=0;
+  for(var i=0; i<array.length;i++){
+    if(i%2==0){
+      array[i]=evens[(j)];
+      j++;
+    }else{
+      array[i]=odds[k];
+      k++; 
+    }
+  }
+  return array;
 }
 
 checkSorted(arraySorted){
