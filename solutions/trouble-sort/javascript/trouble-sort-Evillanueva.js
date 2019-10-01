@@ -9,7 +9,7 @@ function troubleSort(array){
     let odd = [], even = [];
     let io = 0, ie = 0, len = array.length;
 
-    for(let i = 0; i < array.length; i++){
+    for(let i = 0; i < len; i++){
         if (i%2 == 0){
             even.push(array[i]);
         }
@@ -24,7 +24,8 @@ function troubleSort(array){
     
     even.sort(numberSort);
     odd.sort(numberSort);
-    
+
+
     for(let i = 0; i < len; i++){
         if( i%2 == 0 && ie < even.length ){
             array[i] = even[ie];
@@ -35,9 +36,7 @@ function troubleSort(array){
             io++;
         }
     }
-
     return array;
-
 }
 
 function checkTroubleSort(testCase){
@@ -47,7 +46,6 @@ function checkTroubleSort(testCase){
             return 0;
         }
     }
-
     console.log("Case #" + testCase + ": OK");
     return 0;
 }
@@ -58,23 +56,19 @@ function getTestCases(t){
         rl.on("line",(input) => {
 
             input = input.split('\n');
-
             for(let i = 0; i < input.length; i++){
-                if (input[i].length > 1){
+
+                let array = input[i].split(' ').map(Number);
+
+                if (array.length > 1 && array.length <= Math.pow(10,9)){
                     testCase++;
-                    let array = input[i].split(' ').map(Number);
-
-                    if (array.length >= 0 && array.length <= Math.pow(10,9)){
-                        finalArray = troubleSort(array);
-                        checkTroubleSort(testCase);
-                    }
-
+                    finalArray = troubleSort(array);
+                    checkTroubleSort(testCase);
                 }
             }
         });
     }
 }
-
 
 function main (){
     rl.question("",(t) => {
