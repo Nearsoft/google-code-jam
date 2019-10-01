@@ -30,14 +30,9 @@ for(my $i=1; $i <= $testCases; $i++){
 		        push(@Odds, $values[$j]);
 		}
 	}
-    print "Evens @Evens\n";
-    print "Odds @Odds\n";
-	#my @EvensArray = sort @Evens;
+
     my @EvensArray = sort { $a <=> $b } @Evens;
-	#my @OddsArray = sort @Odds;
     my @OddsArray = sort { $a <=> $b } @Odds;
-    print "Evens ordenados @EvensArray\n";
-    print "Odds ordenados @OddsArray\n";
 	my @arraySortedC =();
 	my $m=0;
 	my $n=0;
@@ -50,7 +45,6 @@ for(my $i=1; $i <= $testCases; $i++){
 		        $n++;
 		}
 	}
-    print "Arreglo completo @arraySortedC\n";
 		my @resultTestCase = TroubleSortVerification(@arraySortedC);
 		print "Case #$i: @resultTestCase\n";
 }
