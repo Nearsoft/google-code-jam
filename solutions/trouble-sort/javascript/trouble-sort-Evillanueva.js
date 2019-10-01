@@ -18,8 +18,12 @@ function troubleSort(array){
         }
     }
 
-    even.sort();
-    odd.sort();
+    numberSort = function (a,b) {
+        return a - b;
+    };
+    
+    even.sort(numberSort);
+    odd.sort(numberSort);
     
     for(let i = 0; i < len; i++){
         if( i%2 == 0 && ie < even.length ){
