@@ -1,3 +1,5 @@
+from math import gcd
+
 #HOW TO SOLVE
     # define alphabet
     # create a list for the ciphered primes and empty message
@@ -9,8 +11,6 @@
     # map the sorted list to each letter in a dictionary
     # map the calculated factors to their respective letters
 
-from math import sqrt
-from math import gcd
 
 def cryptopangram(N, L, integers):
     """
@@ -22,20 +22,27 @@ def cryptopangram(N, L, integers):
     alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
     # create a list for the ciphered primes and empty message
-    primes = []
+    primes = [-1] * (L+1)
     message = ""
 
-    # calculate the gcd of the two first ciphered primes to get the second factor
-    factor2 = gcd(integers[0], integers[1])
-    # calculate the first factor by dividing integer_0 // second_factor
-    factor1 = integers[0] // factor2
-    primes.append(factor1)
-    primes.append(factor2)
+    # calculate the gcd of the two first non equal ciphered primes
+    index = -1
+    for i in range(len(integers) - 1):
+        if integers[i] != integers[i+1]:
+            factor = gcd(integers[i], integers[i+1])
+            index = i+1
+            primes[index] = factor
+            break
 
-    # gets the next factor by dividing Integer_i // last_prime
-    for i in range(1, len(integers)):
-        next_factor = integers[i] // primes[-1] # here primes[i] instead also works
-        primes.append(next_factor)
+    #calculates backpropagation
+    for i in range(index, 0, -1):
+        prev_factor = integers[i-1] // primes[i]
+        primes[i-1] = prev_factor
+
+    #calculates frontpropagation
+    for i in range(index, len(integers)):
+        next_factor = integers[i] // primes[i]
+        primes[i+1] = next_factor
 
     # remove repetitions
     unique_primes = list(set(primes))
@@ -45,11 +52,12 @@ def cryptopangram(N, L, integers):
     unique_primes_sorted.sort()
 
     # map the sorted list to each letter in a dictionary
-    prime_map= { primes_2:letter for primes_2,letter in zip(unique_primes_sorted, alphabet) }
+    prime_map = dict(zip(unique_primes_sorted, alphabet))
 
     # map the calculated factors to their respective letters
     for prime in primes:
         message += prime_map[prime]
+
 
     return message
 
@@ -84,4 +92,19 @@ if __name__ == "__main__":
     print(message2)
 
     assert message2 == expected_msg2, "Second case failed!"
+
+    # CASE 3
+    N = 107
+    L = 29
+    integers = [15, 15, 15, 15, 21, 49, 77, 143, 221, 323, 437, 667, 899, 1147, 1517, 1763, 2021, 2491, 3127, 3599, 4087, 4757, 5183, 5767, 6557, 7387, 8633, 9797, 10403]
+
+    message3 = cryptopangram(N, L, integers)
+    expected_msg3 = "ABABACCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    print("Expected msg 3: ")
+    print(expected_msg3)
+    print("Calculated msg 3: ")
+    print(message3)
+
+    assert message3 == expected_msg3, "Third case failed!"
 
