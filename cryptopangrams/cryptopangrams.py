@@ -3,9 +3,9 @@ from math import gcd
 #HOW TO SOLVE
     # define alphabet
     # create a list for the ciphered primes and empty message
-    # calculate the gcd of the two first ciphered primes to get the second factor
-    # calculate the first factor by dividing integer_0 // second_factor
-    # gets the next factor by dividing Integer_i // last_prime
+    # calculate the gcd of the two first non equal ciphered primes
+    # calculates backpropagation
+    # calculates frontpropagation
     # remove repetitions
     # copy into new list and sort it
     # map the sorted list to each letter in a dictionary
