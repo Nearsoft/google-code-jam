@@ -1,71 +1,16 @@
-# A = 3
-# B = 5
-# C = 7
-# D = 11
-# E = 13
-# F = 17
-# G = 19
-# H = 23
-# I = 29
-# J = 31
-# K = 37
-# L = 41
-# M = 43
-# N = 47
-# O = 53
-# P = 59
-# Q = 61
-# R = 67
-# S = 71
-# T = 73
-# U = 79
-# V = 83
-# W = 89
-# X = 97
-# Y = 101
-# Z = 103
-
-#choose M (26) different primes up to N
-#sort list of primes in increasing order
-#map prime to alphabet letters (A: prime1, B: prime2, etc)
-
-#remove space from pangram to form plaintext message
-#write product of prime of first letter times prime of second letter
-#write product prime of second letter times prime of third letter
-#all the way to the last pair (if there were 26 letter, there will be 25 products)
-
-
-
-# CJ QUIZ: KNOW BEVY OF DP FLUX ALGORITHMS
-# CJQUIZKNOWBEVYOFDPFLUXALGORITHMS
-# C x J = 7 x 31 = 217
-# J x Q = 31 x 61 = 1891
-# ...
-# Y x Z = 101 x 103 = 10403
-
 #HOW TO SOLVE
     # define alphabet
     # create a list for the ciphered primes and empty message
-    # calculate the first two factors of the first integer
+    # calculate the gcd of the two first ciphered primes to get the second factor
+    # calculate the first factor by dividing integer_0 // second_factor
     # gets the next factor by dividing Integer_i // last_prime
     # remove repetitions
     # copy into new list and sort it
     # map the sorted list to each letter in a dictionary
     # map the calculated factors to their respective letters
 
-import math
-
-def get_prime_factors(product):
-    factors = []
-    for x in range(2, int(math.sqrt(product)) + 1):
-        if product % x == 0:
-            factors.append(x)
-            factors.append(product // x)
-
-            return factors
-
-    return factors
-
+from math import sqrt
+from math import gcd
 
 def cryptopangram(N, L, integers):
     """
@@ -80,8 +25,10 @@ def cryptopangram(N, L, integers):
     primes = []
     message = ""
 
-    # calculate the first two factors of the first integer
-    factor1, factor2 = get_prime_factors(integers[0])
+    # calculate the gcd of the two first ciphered primes to get the second factor
+    factor2 = gcd(integers[0], integers[1])
+    # calculate the first factor by dividing integer_0 // second_factor
+    factor1 = integers[0] // factor2
     primes.append(factor1)
     primes.append(factor2)
 
