@@ -1,8 +1,8 @@
 use std::collections::HashMap; //to use as dictionaries
-
+use std::io::*;
 //////////////////////////////////////////////////////////////////////////////
 
-fn cryptopangram(n: i32, l: i32, integers: Vec<i32>) -> String
+fn cryptopangram(_n: i32, _l: i32, integers: Vec<i32>) -> String
 {
     // define alphabet
     let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -70,32 +70,33 @@ fn gcd(mut m: i32, mut n: i32) -> i32
 
 fn test_cryptopangrams()
 {
-    // reads first line, the number of cases
-    //n_cases = ???
-
-    // iterate the number of cases to test
-    //for i in 0 .. (n_cases) {
-        // read line with N and L
-        //line = ???
-        // read line with list of integers
-        //line2 = ???
-
-        // turn line with N and L to array of numbers
-        //n = !!!
-        //l = !!!
-
-        // turn line with integers into array of numbers
-        //integers = ###
-
-        //let message = cryptopangram(n, l, integers.to_vec());
-        //println!("Case #{}: {}",i+1, message);
-    //}
+    let t: usize = read();
+    for ti in 0..t {
+        let input = read_vec::<i32>();
+        let n = input[0];
+        let l = input[1];
+        let v: Vec<i32> = read_vec();
+        let ans = cryptopangram(n, l, v);
+        println!("Case #{}: {}", ti + 1, ans);
+    }
 }
+fn read<T: std::str::FromStr>() -> T {
+    let stdin = stdin();
+    let mut buf = String::new();
+	let _ = stdin.lock().read_line(&mut buf);
+	buf.trim().parse().ok().unwrap()
+}
+
+fn read_vec<T: std::str::FromStr>() -> Vec<T> {
+	read::<String>().trim().split_whitespace()
+        .map(|w| w.parse().ok().unwrap()).collect()
+}
+
 
 //////////////////////////////////////////////////////////////////////////////
 
 fn main()
-{
+{/*
     let n = 103;
     let l = 31;
     let integers = [217, 1891, 4819, 2291, 2987, 3811, 1739, 2491, 4717, 445, 65, 1079, 8383, 5353, 901, 187, 649, 1003, 697, 3239, 7663, 291, 123, 779, 1007, 3551, 1943, 2117, 1679, 989, 3053];
@@ -104,8 +105,8 @@ fn main()
 
     println!("Case #1: {}", message);
 
-    //when test_cryptopangrams is ready, delete the above and uncomment the next line
-    //test_cryptopangrams()
+   */ //when test_cryptopangrams is ready, delete the above and uncomment the next line
+    test_cryptopangrams();
 }
 
 //////////////////////////////////////////////////////////////////////////////
