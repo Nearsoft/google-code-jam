@@ -1,5 +1,7 @@
 use std::collections::HashMap; //to use as dictionaries
 
+//////////////////////////////////////////////////////////////////////////////
+
 fn cryptopangram(n: i32, l: i32, integers: Vec<i32>) -> String
 {
     // define alphabet
@@ -12,7 +14,7 @@ fn cryptopangram(n: i32, l: i32, integers: Vec<i32>) -> String
 
     // calculate the gcd of the two first non equal ciphered primes
     let mut index = 0;
-    for i in 0..(integers.len() - 1) {
+    for i in 0 .. (integers.len() - 1) {
         if integers[i] != integers[i+1] {
             let factor = gcd(integers[i], integers[i+1]);
             index = i+1;
@@ -22,13 +24,13 @@ fn cryptopangram(n: i32, l: i32, integers: Vec<i32>) -> String
     }
 
     // calculates backpropagation
-    for i in (1..index+1).rev() {
+    for i in (1 .. index+1).rev() {
         let prev_factor = integers[i-1] / primes[i];
         primes[i-1] = prev_factor;
     }
 
     // calculates frontpropagation
-    for i in index..integers.len() {
+    for i in index .. integers.len() {
         let next_factor = integers[i] / primes[i];
         primes[i+1] = next_factor;
     }
@@ -52,6 +54,8 @@ fn cryptopangram(n: i32, l: i32, integers: Vec<i32>) -> String
     message
 }
 
+//////////////////////////////////////////////////////////////////////////////
+
 fn gcd(mut m: i32, mut n: i32) -> i32
 {
     while m != 0 {
@@ -62,13 +66,15 @@ fn gcd(mut m: i32, mut n: i32) -> i32
     n.abs()
 }
 
+//////////////////////////////////////////////////////////////////////////////
+
 fn test_cryptopangrams()
 {
     // reads first line, the number of cases
     //n_cases = ???
 
     // iterate the number of cases to test
-    //for i in 1..n_cases {
+    //for i in 0 .. (n_cases) {
         // read line with N and L
         //line = ???
         // read line with list of integers
@@ -82,9 +88,11 @@ fn test_cryptopangrams()
         //integers = ###
 
         //let message = cryptopangram(n, l, integers.to_vec());
-        //println!("Case #{}: {}",i, message);
+        //println!("Case #{}: {}",i+1, message);
     //}
 }
+
+//////////////////////////////////////////////////////////////////////////////
 
 fn main()
 {
@@ -99,4 +107,16 @@ fn main()
     //when test_cryptopangrams is ready, delete the above and uncomment the next line
     //test_cryptopangrams()
 }
+
+//////////////////////////////////////////////////////////////////////////////
+
+//Test the program with the following input without the "//":
+
+//3
+//103 31
+//217 1891 4819 2291 2987 3811 1739 2491 4717 445 65 1079 8383 5353 901 187 649 1003 697 3239 7663 291 123 779 1007 3551 1943 2117 1679 989 3053
+//10000 25
+//3292937 175597 18779 50429 375469 1651121 2102 3722 2376497 611683 489059 2328901 3150061 829981 421301 76409 38477 291931 730241 959821 1664197 3057407 4267589 4729181 5335543
+//197 29
+//15 15 15 15 21 49 77 143 221 323 437 667 899 1147 1517 1763 2021 2491 3127 3599 4087 4757 5183 5767 6557 7387 8633 9797 10403
 
