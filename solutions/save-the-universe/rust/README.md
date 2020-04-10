@@ -1,0 +1,3 @@
+# Note about the two different versions
+This project has two different versions. The lonely file in this directory, __main.rs__, works fine as it is and can be easily compiled with __rustc__, but it has no validation.
+On the other hand, the folder __cargo-ver__ has inside another __main.rs__ file that allows validation alongide other file named __Cargo.toml__, but needs **Cargo** implementation. To work with this version you need to create a new Cargo project by writting in the console: ``cargo new``. This will create files and folders for a new project. Just replace the __Cargo.toml__ file in the root and the __main.rs__ file inside __src__ with those included inside __cargo-ver__ and run it with ``cargo run``.
