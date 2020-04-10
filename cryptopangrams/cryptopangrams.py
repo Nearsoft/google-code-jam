@@ -1,16 +1,7 @@
+#!/usr/bin/env python3
+
 from math import gcd
-
-#HOW TO SOLVE
-    # define alphabet
-    # create a list for the ciphered primes and empty message
-    # calculate the gcd of the two first non equal ciphered primes
-    # calculates backpropagation
-    # calculates frontpropagation
-    # remove repetitions
-    # copy into new list and sort it
-    # map the sorted list to each letter in a dictionary
-    # map the calculated factors to their respective letters
-
+import sys
 
 def cryptopangram(N, L, integers):
     """
@@ -61,50 +52,35 @@ def cryptopangram(N, L, integers):
 
     return message
 
+##############################################################################
+
+def test_cryptopangrams():
+    n_cases = int(sys.stdin.readline().strip())
+
+    for case in range(n_cases):
+        line1 = list(sys.stdin.readline().strip().split())
+        N, L = [int(i) for i in line1]
+        line2 = list(sys.stdin.readline().strip().split())
+        integers = [int(i) for i in line2]
+
+        message = cryptopangram(N, L, integers)
+
+        print("Case #" + str(case+1)+ ": " + message)
+
+##############################################################################
+
 if __name__ == "__main__":
-    print("CRYPTOPANGRAM TEST")
-    # CASE 1
-    N = 103
-    L = 31
-    integers = [217, 1891, 4819, 2291, 2987, 3811, 1739, 2491, 4717, 445, 65, 1079, 8383, 5353, 901, 187, 649, 1003, 697, 3239, 7663, 291, 123, 779, 1007, 3551, 1943, 2117, 1679, 989, 3053]
+    test_cryptopangrams()
 
-    message1 = cryptopangram(N, L, integers)
-    expected_msg1 = "CJQUIZKNOWBEVYOFDPFLUXALGORITHMS"
+##############################################################################
 
-    print("Expected msg 1: ")
-    print(expected_msg1)
-    print("Calculated msg 1: ")
-    print(message1)
+#Test the program with the following input without the "#":
 
-    assert message1 == expected_msg1, "First case failed!"
-
-    # CASE 2
-    N = 10000
-    L = 25
-    integers = [3292937, 175597, 18779, 50429, 375469, 1651121, 2102, 3722, 2376497, 611683, 489059, 2328901, 3150061, 829981, 421301, 76409, 38477, 291931, 730241, 959821, 1664197, 3057407, 4267589, 4729181, 5335543]
-
-    message2 = cryptopangram(N, L, integers)
-    expected_msg2 = "SUBDERMATOGLYPHICFJKNQVWXZ"
-
-    print("Expected msg 2: ")
-    print(expected_msg2)
-    print("Calculated msg 2: ")
-    print(message2)
-
-    assert message2 == expected_msg2, "Second case failed!"
-
-    # CASE 3
-    N = 107
-    L = 29
-    integers = [15, 15, 15, 15, 21, 49, 77, 143, 221, 323, 437, 667, 899, 1147, 1517, 1763, 2021, 2491, 3127, 3599, 4087, 4757, 5183, 5767, 6557, 7387, 8633, 9797, 10403]
-
-    message3 = cryptopangram(N, L, integers)
-    expected_msg3 = "ABABACCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-    print("Expected msg 3: ")
-    print(expected_msg3)
-    print("Calculated msg 3: ")
-    print(message3)
-
-    assert message3 == expected_msg3, "Third case failed!"
+# 3
+# 103 31
+# 217 1891 4819 2291 2987 3811 1739 2491 4717 445 65 1079 8383 5353 901 187 649 1003 697 3239 7663 291 123 779 1007 3551 1943 2117 1679 989 3053
+# 10000 25
+# 3292937 175597 18779 50429 375469 1651121 2102 3722 2376497 611683 489059 2328901 3150061 829981 421301 76409 38477 291931 730241 959821 1664197 3057407 4267589 4729181 5335543
+# 197 29
+# 15 15 15 15 21 49 77 143 221 323 437 667 899 1147 1517 1763 2021 2491 3127 3599 4087 4757 5183 5767 6557 7387 8633 9797 10403
 
