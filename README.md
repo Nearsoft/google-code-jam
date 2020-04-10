@@ -6,7 +6,7 @@ This repository shows reference solutions for several Google Code Jam problems.
 
 1. [Alien language](solutions/alien-language)
 2. [Bathroom stalls](solutions/bathroom-stalls)
-3. [cryptopangrams](solutions/cryptopangrams)
+3. [Cryptopangrams](solutions/cryptopangrams)
 4. [Cubic UFO](solutions/cubic-ufo)
 5. [Dijkstra](solutions/dijkstra)
 6. [Fashion show](solutions/fashion-show)
