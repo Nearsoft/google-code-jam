@@ -1,9 +1,8 @@
 use std::collections::HashMap; //to use as dictionaries
 use std::io::*;
-
 //////////////////////////////////////////////////////////////////////////////
 
-fn cryptopangram(_n: i128, _l: i128, integers: Vec<i128>) -> String
+fn cryptopangram(_n: i32, _l: i32, integers: Vec<i32>) -> String
 {
     // define alphabet
     let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -42,7 +41,7 @@ fn cryptopangram(_n: i128, _l: i128, integers: Vec<i128>) -> String
     unique_primes_sorted.dedup(); //removes repetitions
 
     // map the sorted list to each letter in a dictionary
-    let mut prime_map: HashMap<i128, char> = HashMap::new();
+    let mut prime_map: HashMap<i32, char> = HashMap::new();
     for i in 0 .. unique_primes_sorted.len() {
         prime_map.insert(unique_primes_sorted[i], alphabet[i]);
     }
@@ -57,7 +56,7 @@ fn cryptopangram(_n: i128, _l: i128, integers: Vec<i128>) -> String
 
 //////////////////////////////////////////////////////////////////////////////
 
-fn gcd(mut m: i128, mut n: i128) -> i128
+fn gcd(mut m: i32, mut n: i32) -> i32
 {
     while m != 0 {
         let old_m = m;
@@ -73,10 +72,10 @@ fn test_cryptopangrams()
 {
     let t: usize = read();
     for ti in 0..t {
-        let input = read_vec::<i128>();
+        let input = read_vec::<i32>();
         let n = input[0];
         let l = input[1];
-        let v: Vec<i128> = read_vec();
+        let v: Vec<i32> = read_vec();
         let ans = cryptopangram(n, l, v);
         println!("Case #{}: {}", ti + 1, ans);
     }
