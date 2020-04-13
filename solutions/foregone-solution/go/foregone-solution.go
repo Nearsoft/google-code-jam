@@ -8,13 +8,23 @@ import (
 	"strings"
 )
 
+func printError(err error) {
+	if err != nil {
+		fmt.Printf("got err, %+v\n", err)
+		os.Exit(1)
+	}
+}
+
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	testCases, _ := reader.ReadString('\n')
+	testCases, err := reader.ReadString('\n')
+	printError(err)
 	testCases = strings.TrimSpace(testCases)
-	testCasesNumber, _ := strconv.Atoi(testCases)
+	testCasesNumber, err := strconv.Atoi(testCases)
+	printError(err)
 	for caseNumber := 0; caseNumber < testCasesNumber; caseNumber++ {
-		number, _ := reader.ReadString('\n')
+		number, err := reader.ReadString('\n')
+		printError(err)
 		number = strings.TrimSpace(number)
 		var r1 string = ""
 		var r2 string = ""
