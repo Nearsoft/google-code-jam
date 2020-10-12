@@ -1,0 +1,81 @@
+//Reads console
+const fs = require("fs");
+const input = fs.readFileSync(0, "utf8").trim().split("\n");
+
+let currentline = 0;
+
+function readline() {
+    return input[currentline++];
+}
+
+class Activity {
+    constructor(index, startDate, endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.index = index;
+    }
+
+}
+
+let T = readline();
+for (let i = 1; i <= T; i++) {
+    let n = readline();
+    let activities = [];
+    for (let j = 0; j < n; j++) {
+        let data = readline();
+        let array = data.split(" ");
+        let act = new Activity(j, parseInt(array[0]) + 1, parseInt(array[1]) + 1);
+
+        activities[j] = act;
+    }
+    activities.sort(function(a, b) {
+        if (a.startDate === b.startDate) {
+            return a.endDate - b.endDate;
+        }
+        return a.startDate - b.startDate;
+
+    });
+    const parents = ["C", "J"];
+
+    let currentParent = 0;
+    let finishTime = [Number.MIN_VALUE, Number.MIN_VALUE];
+    let ans = [];
+
+    ans[activities[0].index] = "C";
+    finishTime[0] = activities[0].endDate;
+
+    let isPosible = true;
+
+    //Activities
+    for (let j = 1; j < n; j++) {
+        let finish = activities[j - 1].endDate;
+
+        let start = activities[j].startDate;
+
+        if (start >= finish) {
+            ans[activities[j].index] = parents[currentParent];
+            finishTime[currentParent] = activities[j].endDate;
+        } else {
+            currentParent = currentParent ? 0 : 1;
+            if (start >= finishTime[currentParent]) {
+                ans[activities[j].index] = parents[currentParent];
+                finishTime[currentParent] = activities[j].endDate;
+            } else {
+                isPosible = false;
+                break;
+            }
+        }
+    }
+
+    let answerString = "";
+    if (isPosible) {
+        for (let whoIs of ans) {
+            answerString += whoIs;
+        }
+    } else {
+        answerString = "IMPOSSIBLE";
+    }
+
+    console.log("Case #" + i + ": " + answerString);
+}
+
