@@ -21,3 +21,4 @@ This repository shows reference solutions for several Google Code Jam problems.
 15. [T9 spelling](solutions/t9-spelling)
 16. [Tidy numbers](solutions/tidy-numbers)
 17. [Trouble sort](solutions/trouble-sort)
+18. [Reversort Engineering (Python)](solutions/reversort-engineering-python)
