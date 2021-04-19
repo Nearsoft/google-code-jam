@@ -148,4 +148,13 @@ def solve_test_case(test_case_number)
   puts "Case ##{test_case_number}: #{player_with_largest_difference}"
 end
 
-solve_test_case(1)
+def main
+  test_cases = gets.chomp.to_i
+  percentage = gets.chomp.to_i
+  
+  for i in 1..test_cases
+    solve_test_case(i)
+  end
+end
+
+main()
