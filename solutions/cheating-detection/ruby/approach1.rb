@@ -6,20 +6,6 @@ Algorithm to solve one test case:
      in the array are strings.
 
   === Gather questions data ===
-  2. Estimate the difficulty for each question.
-     Formula:
-       (players_who_got_it_right * -6 / number_of_players) + 3
-       Example: (40 * -6 / 100) + 3
-     a) Iterate over A checking the ith character of every element of A. The
-        ith character represents the questions number, accumulate in another
-        array (let's call it CORRECT_ANSWERS) the correct answers for each
-        question.
-     b) After this, compute the difficulty of each questions and substitute it
-        in-place in array CORRECT_ANSWERS.
-  3. Find the top hardest questions (extreme questions).
-     These are questions with difficulte greater or equal to 2.0.
-
-  ---Alternate steps 2 and 3 (save memory and compute time)---
   2. Iterate over A checking the ith character of every element of A. The
      ith character represents the questions number. Accumulate the number
      of correct results for such ith question in a variable.
@@ -85,9 +71,9 @@ def solve_test_case(test_case_number)
     answers << gets.chomp
   end
 
-  ####################
-  # Step 2 [alternate]
-  ####################
+  ########
+  # Step 2
+  ########
   extreme_questions = [] # Shifted one to correspond index number.
   answered_rigth = 0 # Correct total answers for current question.
 
@@ -96,9 +82,9 @@ def solve_test_case(test_case_number)
       answered_rigth += answers[j][i].to_i
     end
 
-    ####################
-    # Step 3 [alternate]
-    ####################
+    ########
+    # Step 3
+    ########
     difficulty = estimate_question_difficulty(answered_rigth)
 
     if difficulty > EXTREME_DIFFICULTY
