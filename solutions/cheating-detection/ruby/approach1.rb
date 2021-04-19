@@ -102,7 +102,7 @@ def solve_test_case(test_case_number)
     difficulty = estimate_question_difficulty(answered_rigth)
 
     if difficulty > EXTREME_DIFFICULTY
-      extreme_questions << i
+      extreme_questions[i] = true
     end
     answered_rigth = 0 # Reset right answers counter.
   end
@@ -120,8 +120,7 @@ def solve_test_case(test_case_number)
 
     for j in 0..(answers[i].length - 1)
       score += answers[i][j].to_i
-      # === TODO: OPTIMIZATION: use map instead of include?
-      if extreme_questions.include? j
+      if extreme_questions[j]
         extreme_scores[i] += answers[i][j].to_i
       end
     end
