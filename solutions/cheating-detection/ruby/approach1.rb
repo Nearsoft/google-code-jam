@@ -8,7 +8,7 @@ Algorithm to solve one test case:
   === Gather questions data ===
   2. Estimate the difficulty for each question.
      Formula:
-       (players_who_got_it_right * -6 / total_players) + 3
+       (players_who_got_it_right * -6 / number_of_players) + 3
        Example: (40 * -6 / 100) + 3
      a) Iterate over A checking the ith character of every element of A. The
         ith character represents the questions number, accumulate in another
@@ -23,7 +23,7 @@ Algorithm to solve one test case:
   2. Iterate over A checking the ith character of every element of A. The
      ith character represents the questions number. Accumulate the number
      of correct results for such ith question in a variable.
-  3. After the all answers have been checked for the ith question, apply
+  3. After all answers have been checked for the ith question, apply
      the formula to determine the difficulty of the question. If the
      difficulty is greater or equal to 2.0, store the number of the question
      in the array of extreme questions (let's call it EXTREME_QUESTIONS).
@@ -36,25 +36,117 @@ Algorithm to solve one test case:
      Iterate over each element of A doing the following:
        a) counting the total number of correctly answered questions, and
        b) counting the number of correctly answered extreme questions.
-     Store (a) and (b) in arrays, let's call them SCORES and EXTREME_SCORES.
+     Store in arrays, let's call them SKILL_LEVELS, for the array that holds
+     the computation of the skill level according to the formula and (a), and
+     EXTREME_SCORES, for the array that holds (b).
 
   === Find the cheater ===
   5. Calculate the estimated amount of extreme questions each player should have
      answered correctly, use the sigmoid function:
        1 / (1 + e ^ -(player_skill - 2.0)), where e is Euler's number.
-     For each ith player, store EXTREME_SCORES[i] - estimate in an array, let's
-     call this array DIFFERENCES.
-  6. Find the largest element in the array DIFFERENCES, its index + 1 is the number
-     of the cheating player.
+     For each ith player, compute EXTREME_SCORES[i] - estimate and keep track of
+     the largest difference and the player number it belongs to.
+  6. The cheater is the player number of the largest difference found in (5).
 =end
 
 =begin
-What I need to learn about the programming language:
+What I need to learn about Ruby:
   - functions
   - variables
   - string manipulation
   - arithmetic
-  - lists
-  - stdin / stdout
+  - arrays
+  - stdin/stdout
   - control structures (for, if, etc.)
 =end
+
+NUMBER_OF_PLAYERS = 100.0
+NUMBER_OF_QUESTIONS = 10000.0
+EXTREME_DIFFICULTY = 2.0
+
+def estimate_question_difficulty(correct_answers)
+  (correct_answers * -6.0 / NUMBER_OF_PLAYERS) + 3.0
+end
+
+def estimate_skill_level(correct_answers)
+  (correct_answers * 6.0 / NUMBER_OF_QUESTIONS) - 3.0
+end
+
+def estimate_correct_extreme_questions(skill_level)
+  1 / (1 + 2.718 ** -(skill_level - EXTREME_DIFFICULTY))
+end
+
+def solve_test_case(test_case_number)
+  ########
+  # Step 1
+  ########
+  answers = []
+  100.times do
+    answers << gets.chomp
+  end
+
+  ####################
+  # Step 2 [alternate]
+  ####################
+  extreme_questions = [] # Shifted one to correspond index number.
+  answered_rigth = 0 # Correct total answers for current question.
+
+  for i in 0..(NUMBER_OF_QUESTIONS - 1)
+    for j in 0..(answers.length() - 1)
+      answered_rigth += answers[j][i].to_i
+    end
+
+    ####################
+    # Step 3 [alternate]
+    ####################
+    difficulty = estimate_question_difficulty(answered_rigth)
+
+    if difficulty > EXTREME_DIFFICULTY
+      extreme_questions << i
+    end
+    answered_rigth = 0 # Reset right answers counter.
+  end
+
+  ########
+  # Step 4
+  ########
+  skill_levels = []
+  extreme_scores = []
+
+  for i in 0..(answers.length() - 1)
+    # Zero correct answers by default.
+    score = 0
+    extreme_scores[i] = 0
+
+    for j in 0..(answers[i].length - 1)
+      score += answers[i][j].to_i
+      # === TODO: OPTIMIZATION: use map instead of include?
+      if extreme_questions.include? j
+        extreme_scores[i] += answers[i][j].to_i
+      end
+    end
+    skill_levels << estimate_skill_level(score)
+  end
+
+  ########
+  # Step 5
+  ########
+  largest_difference = -NUMBER_OF_QUESTIONS
+  player_with_largest_difference = nil
+
+  for i in 0..(NUMBER_OF_PLAYERS - 1)
+    difference =
+      extreme_scores[i] - estimate_correct_extreme_questions(skill_levels[i])
+    if difference > largest_difference
+      largest_difference = difference
+      player_with_largest_difference = i + 1
+    end
+  end
+
+  ########
+  # Step 6
+  ########
+  puts "Case ##{test_case_number}: #{player_with_largest_difference}"
+end
+
+solve_test_case(1)
