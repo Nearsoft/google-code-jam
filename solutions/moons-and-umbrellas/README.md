@@ -1,4 +1,4 @@
-# Moons ans Umbrellas
+# Moons and Umbrellas
 
 Cody-Jamal is working on his latest piece of abstract art: a mural consisting of a row of waning moons and closed umbrellas.
 Unfortunately, greedy copyright trolls are claiming that waning moons look like an uppercase C and closed umbrellas look like a J, 
