@@ -13,6 +13,7 @@ Algorithm to solve one test case:
      the formula to determine the difficulty of the question. If the
      difficulty is greater or equal to 2.0, store the number of the question
      in the array of extreme questions (let's call it EXTREME_QUESTIONS).
+     Count the total number of extreme questions (needed for (5)).
 
   === Gather players data ===
   4. Estimate the skill level for each player.
@@ -29,21 +30,11 @@ Algorithm to solve one test case:
   === Find the cheater ===
   5. Calculate the estimated amount of extreme questions each player should have
      answered correctly, use the sigmoid function:
-       1 / (1 + e ^ -(player_skill - 2.0)), where e is Euler's number.
+       1 / (1 + e ^ -(player_skill - 2.0)) * number_of_extreme_questions,
+       where e is Euler's number.
      For each ith player, compute EXTREME_SCORES[i] - estimate and keep track of
      the largest difference and the player number it belongs to.
   6. The cheater is the player number of the largest difference found in (5).
-=end
-
-=begin
-What I need to learn about Ruby:
-  - functions
-  - variables
-  - string manipulation
-  - arithmetic
-  - arrays
-  - stdin/stdout
-  - control structures (for, if, etc.)
 =end
 
 NUMBER_OF_PLAYERS = 100.0
@@ -58,8 +49,9 @@ def estimate_skill_level(correct_answers)
   (correct_answers * 6.0 / NUMBER_OF_QUESTIONS) - 3.0
 end
 
-def estimate_correct_extreme_questions(skill_level)
-  1 / (1 + 2.718 ** -(skill_level - EXTREME_DIFFICULTY))
+def estimate_correct_extreme_questions(skill_level, number_of_extreme_questions)
+  1.0 / (1.0 + 2.718 ** -(skill_level - EXTREME_DIFFICULTY)) *
+      number_of_extreme_questions
 end
 
 def solve_test_case(test_case_number)
@@ -74,7 +66,8 @@ def solve_test_case(test_case_number)
   ########
   # Step 2
   ########
-  extreme_questions = [] # Shifted one to correspond index number.
+  extreme_questions = []
+  number_of_extreme_questions = 0
   answered_rigth = 0 # Correct total answers for current question.
 
   for i in 0..(NUMBER_OF_QUESTIONS - 1)
@@ -89,6 +82,7 @@ def solve_test_case(test_case_number)
 
     if difficulty > EXTREME_DIFFICULTY
       extreme_questions[i] = true
+      number_of_extreme_questions += 1
     end
     answered_rigth = 0 # Reset right answers counter.
   end
@@ -120,8 +114,9 @@ def solve_test_case(test_case_number)
   player_with_largest_difference = nil
 
   for i in 0..(NUMBER_OF_PLAYERS - 1)
-    difference =
-      extreme_scores[i] - estimate_correct_extreme_questions(skill_levels[i])
+    difference = extreme_scores[i] - estimate_correct_extreme_questions(
+        skill_levels[i],
+        number_of_extreme_questions)
     if difference > largest_difference
       largest_difference = difference
       player_with_largest_difference = i + 1
