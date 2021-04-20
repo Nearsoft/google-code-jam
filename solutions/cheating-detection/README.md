@@ -1,9 +1,9 @@
  <h1> Cheating Detection Problem </h1>
 
-There are 100 players are competing in a 10000-question trivia tournament,  the players are numbered from 1 to 100. 
-Player i has a skill level of Si [-3.00, 3.00] and question j has a difficulty level of Qj [-3.00, 3.00].
-When player i tries to answer question j, the probability that they answer it correctly is f(Si−Qj), where f is the sigmoid function.
-There is one exception: exactly one of the players is a cheater! The cheater will flip a coin (before answering a question) to decide wheather to cheat or not.
+There are 100 players are competing in a 10000-question trivia tournament,  the players are numbered from 1 to 100. <br>
+Player i has a skill level of Si [-3.00, 3.00] and question j has a difficulty level of Qj [-3.00, 3.00].<br>
+When player i tries to answer question j, the probability that they answer it correctly is f(Si−Qj), where f is the sigmoid function.<br>
+There is one exception: exactly one of the players is a cheater! The cheater will flip a coin (before answering a question) to decide wheather to cheat or not.<br>
 
  <h1> Input & Output </h1>
 You are given the total number of test cases T, and the percentage P, of correct guesses to pass the challenge.
