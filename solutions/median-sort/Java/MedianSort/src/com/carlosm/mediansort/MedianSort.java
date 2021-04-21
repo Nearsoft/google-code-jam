@@ -14,7 +14,7 @@ public class MedianSort {
             int [] list = {1, 2};
             //Adding numbers depending on int N
             for(int ii=2; ii<N; ii++){
-                //System.out.println("Iteracion: " + ii);
+                System.out.println("Iteracion: " + ii);
                 list=add(list, ii+1, fs);
             }
             if(!printAnswers(list, fs)){
@@ -24,22 +24,29 @@ public class MedianSort {
     }
     //This function add the rest of number
     static int[] add(int[] list, int toAdd, Scanner fs){
-//        System.out.println("Tamaño de lista: " + list.length);
-//        System.out.println("Añadido: "+ toAdd);
+        System.out.println("Tamaño de lista: " + list.length);
+        System.out.println("Añadido: "+ toAdd);
         int targetIndex=getTargetIndex(list, toAdd, 0, list.length, fs);
-//        System.out.println("Target: " + targetIndex);
+        System.out.println("Target: " + targetIndex + "  longitud list: " + list.length);
+        //Creamos nueva array
         int[] response = new int[list.length + 1];
+        //Barrido de elementos para response
         for(int i=0; i<targetIndex; i++){
             response[i]=list[i];
         }
+        //Añadimos nuevo valor
         response[targetIndex]=toAdd;
+
+        //Validacion
         for (int i=targetIndex+1; i<response.length; i++) {
             response[i]=list[i-1];
-            //System.out.println("i de add: "+ i);
+            System.out.println("i de add: "+ i);
         }
-//        for (int element: response){
-//            System.out.println("Elemento de response: " + element);
-//        }
+
+        //Verificar que tenemos en response
+        for (int element: response){
+            System.out.println("Elemento de response: " + element);
+        }
         return response;
     }
     //Obtaining the index of the answer of google
@@ -50,29 +57,34 @@ public class MedianSort {
             if (r!=list.length) r++;
             else l--;
         }
-//        System.out.println("l: " + l);
-//        System.out.println("r: " + r);
+
+        System.out.println("l: " + l);
+        System.out.println("r: " + r);
         int leftmostpivot=l, rightmostpivot=r-1;
-        //System.out.println("pivote izq: " + leftmostpivot);
-//        System.out.println("pivote der: " + rightmostpivot);
+        System.out.println("pivote izq: " + leftmostpivot);
+        System.out.println("pivote der: " + rightmostpivot);
+        //Divisiones de acuerdo al incremento
         int nSplits = rightmostpivot-leftmostpivot+1;
-        //System.out.println("numero de divisiones: " + nSplits);
-        int n1= leftmostpivot+(nSplits-1)/3;
-        //System.out.println(n1);
-        int n2= rightmostpivot-(nSplits-1)/3;
-        //System.out.println(n2);
+        System.out.println("numero de divisiones: " + nSplits);
+        int n1= leftmostpivot+((nSplits-1)/3);
+        System.out.println("n1: " + n1);
+        int n2= rightmostpivot-((nSplits-1)/3);
+        System.out.println("n2:" + n2);
         //Asking user(google)
         int med = ask(toAdd,list[n1], list[n2], fs);
         if(med==list[n1]){
-//            System.out.println("Opcion 1");
+            System.out.println("Opcion 1");
+            //Funciona cuando termina
             return getTargetIndex(list, toAdd,l,n1,fs);
         }
         else if(med==list[n2]){
-//            System.out.println("Opcion 2");
+            System.out.println("Opcion 2");
+            //Funciona cuando termina
             return getTargetIndex(list, toAdd, n2+1, r, fs);
         }
         else {
-//            System.out.println("Opcion 3");
+            System.out.println("Opcion 3");
+            //Funciona cuando termina
             return getTargetIndex(list, toAdd, n1+1,n2,fs);
         }
     }
