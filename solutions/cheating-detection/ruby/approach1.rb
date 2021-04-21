@@ -11,8 +11,8 @@ Algorithm to solve one test case:
      of correct results for such ith question in a variable.
   3. After all answers have been checked for the ith question, apply
      the formula to determine the difficulty of the question. If the
-     difficulty is greater or equal to 2.0, store the number of the question
-     in the array of extreme questions (let's call it EXTREME_QUESTIONS).
+     difficulty is greater or equal to 2.0, keep track of the question
+     number using an array (let's call it EXTREME_QUESTIONS).
      Count the total number of extreme questions (needed for (5)).
 
   === Gather players data ===
@@ -23,8 +23,8 @@ Algorithm to solve one test case:
      Iterate over each element of A doing the following:
        a) counting the total number of correctly answered questions, and
        b) counting the number of correctly answered extreme questions.
-     Store in arrays, let's call them SKILL_LEVELS, for the array that holds
-     the computation of the skill level according to the formula and (a), and
+     Store in arrays. Let's call them SKILL_LEVELS, for the array that holds
+     the computation of the skill level according to the formula; and
      EXTREME_SCORES, for the array that holds (b).
 
   === Find the cheater ===
