@@ -6,19 +6,20 @@ def reverse(arr, i, j):
 
 
 def reversort_engineering():
-    n, c = map(int, input().strip().split())
+    size_of_array, cost = map(int, input().strip().split())
 
-    if c < n - 1 or c > ((n * (n + 1)) / 2) - 1:
+    if cost < size_of_array - 1 or cost > ((size_of_array * (size_of_array + 1)) / 2) - 1:
         return "IMPOSSIBLE"
-    arrOfRange = list(range(1, n + 1))
+    array_from_one_to_size = list(range(1, size_of_array + 1))
 
-    for i in reversed(range(n - 1)):
-        m = min(c - i, n - i)
-        c -= m
-        reverse(arrOfRange, i, i + m - 1)
-    return " ".join(map(str, arrOfRange))
+    for i in reversed(range(size_of_array - 1)):
+        minimum_cost = min(cost - i, size_of_array - i)
+        cost -= minimum_cost
+        reverse(array_from_one_to_size, i, i + minimum_cost - 1)
+    return " ".join(map(str, array_from_one_to_size))
 
 
 if __name__ == '__main__':
-    for case in range(1, int(input()) + 1):
+    test_cases = int(input())
+    for case in range(1, test_cases + 1):
         print(f'case #{case}: {reversort_engineering()}')
