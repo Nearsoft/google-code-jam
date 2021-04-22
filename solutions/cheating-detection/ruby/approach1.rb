@@ -10,15 +10,16 @@ Algorithm to solve one test case:
      ith character represents the questions number. Accumulate the number
      of correct results for such ith question in a variable.
   3. After all answers have been checked for the ith question, apply
-     the formula to determine the difficulty of the question. If the
-     difficulty is greater or equal to 2.0, keep track of the question
-     number using an array (let's call it EXTREME_QUESTIONS).
+     the formula to estimate the difficulty of the question:
+        (correct_answers * -6 / number_of_players) + 3
+        Example: (89 * -6 / 100) + 3
+     If the difficulty is greater or equal to 2.0, keep track of the
+     question number using an array (let's call it EXTREME_QUESTIONS).
      Count the total number of extreme questions (needed for (5)).
 
   === Gather players data ===
-  4. Estimate the skill level for each player.
-     Formula:
-       (right_answers * 6 / number_of_questions) - 3
+  4. Estimate the skill level for each player according to the formula:
+       (correct_answers * 6 / number_of_questions) - 3
        Example: (5000 * 6 / 10000) - 3
      Iterate over each element of A doing the following:
        a) counting the total number of correctly answered questions, and
