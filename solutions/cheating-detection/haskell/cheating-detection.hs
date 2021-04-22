@@ -1,106 +1,130 @@
+module Main where
+
+-- Data.Char is for digitsToInt; converts a Char into an Int
 import Data.Char
+-- Control.Monad; replaces if then else construction on loopTestCases
+import qualified Control.Monad
+-- Data.List brings elemIndex, to find an index of an element, and transpose, for matrixes
 import Data.List
-import Data.Ord
-import Data.Function
+-- Data.Maybe gives fromJust; function to retrieve a value from a Maybe construction.
 import Data.Maybe
-import System.IO
-import Control.DeepSeq
 
+-- Constants paradise --
+numStudentsFloat = 100.0
+numStudentsInt = 100
+numAnswersFloat = 10000.0
+numAnswersInt = 10000
+
+-- range is the space between -3 and 3, the limits of the range.
 range = 6.0
-numStudents = 100
-numQuestions = 10000
-minValueNewRange = -3
-numTopBottomAns = 100
-trueAnsProb = 0.53     
-ansDiffTop = 2.5
-ansDiffBottom = -2.5
-allAround = 0.05
 
-loopTestCases :: Int -> Int -> Handle -> IO Int
-loopTestCases x numTestCases contents = if x > 0 
-                                            then do
-                                                loopStudents numStudents [] (replicate numQuestions 0.0) [] x numTestCases contents
-                                                loopTestCases (x - 1) numTestCases contents
-                                            else return 0
+-- The bottom limit of the new range. We conver from range 0,100, and 0,10000, to -3,3
+minValNewRange = -3.0
 
-loopStudents :: Int -> [Float] -> [Float] -> [[Float]] -> Int -> Int -> Handle -> IO Int
-loopStudents x studSkills ans studAns testCase numTestCases contents = if x > 0 
-                                                                            then do
-                                                                                    line <- hGetLine contents
-                                                                                    let studentLineFloat = map (fromIntegral . digitToInt) line
-                                                                                        sumStudentAns = sum studentLineFloat
-                                                                                        skill = ((sumStudentAns * range) / fromIntegral numQuestions) + minValueNewRange
+-- If below 2.0, it is no a extreme question
+difficultyOfExtremeQuestions = 2.0
 
-                                                                                        in do    
-                                                                                                print $ "Student #" ++ show x ++ " :" ++ show sumStudentAns
-                                                                                                -- print $ "Student " ++ show x ++ show studentLineFloat
-                                                                                                loopStudents (x - 1) (studSkills ++ [skill]) (zipWith (+) studentLineFloat ans) (studAns ++ [studentLineFloat]) testCase numTestCases contents
-                                                                        else do
-                                                                                let 
-                                                                                    newTestCase = numTestCases - testCase + 1
-                                                                                    firstStep = map (* range) ans
-                                                                                    secondStep = map (/ fromIntegral numStudents) firstStep
-                                                                                    thirdStep = map (subtract (-minValueNewRange)) secondStep
-                                                                                    scaledAns = map (*(-1)) thirdStep
-                                                                                    -- minSkill = minimum studSkills
-                                                                                    minSkill = -2.171
-                                                                                    -- maxSkill = maximum studSkills
-                                                                                    maxSkill = 2.021
-                                                                                    ansModels = createAnsModels studSkills scaledAns [] numQuestions minSkill maxSkill
-                                                                                    ansStud = transpose studAns
-                                                                                    diffInModels = compareModels ansStud ansModels (replicate numStudents 0.0)
-                                                                                    maxDiff = minimum diffInModels
-                                                                                    index = fromJust (elemIndex maxDiff diffInModels)
-                                                                                    in do
-                                                                                            putStrLn $ "Case #" ++ show newTestCase ++ ": " ++ show index 
-                                                                                            -- print $ length ansModels
-                                                                                            -- print $ minimum studSkills
-                                                                                            -- print $ maximum studSkills
-                                                                                            -- print $ minimum scaledAns
-                                                                                            -- print $ maximum scaledAns
-                                                                                            -- print studSkills
-                                                                                            -- print scaledAns
-                                                                                            -- print ansModels
-                                                                                            return 0
+-- End of constants paradise --
 
-createAnsModels :: [Float] -> [Float] -> [(Int,[Float])] -> Int -> Float -> Float -> [(Int,[Float])]
-createAnsModels studSkills ansDiff ansModels count minSkill maxSkill= if count <= 0
-                                                                            then ansModels
-                                                                        else
-                                                                            let ans = head ansDiff
-                                                                                tupleStudsAns = createTupleStudsAns studSkills ans count
-                                                                                in 
-                                                                                    if ans > ansDiffTop
-                                                                                        then do
-                                                                                                createAnsModels studSkills (tail ansDiff) (tupleStudsAns:ansModels) (count - 1) minSkill maxSkill
-                                                                                    else
-                                                                                        createAnsModels studSkills (tail ansDiff) ansModels (count - 1) minSkill maxSkill
+loopTestCases :: Int -> Int -> IO ()
+loopTestCases numTestCases count = Control.Monad.when ( count < numTestCases )
+                                    $ do
+                                        -- We loop over all the students (100)
+                                        loopStudents 0 [] (replicate numAnswersInt 0.0) [] count
+                                        -- Next test case
+                                        loopTestCases numTestCases (count + 1)
 
-createTupleStudsAns :: [Float] -> Float -> Int -> (Int,[Float])
-createTupleStudsAns studSkills ansDiff ansIndex = ( ansIndex, map (\x -> if sigmodFunction x ansDiff > trueAnsProb then 1 else 0 ) studSkills )
+loopStudents :: Int -> [[Float]] -> [Float] -> [Float] -> Int -> IO ()
+loopStudents count
+             studentsAnswers
+             answersDifficulty
+             scaledStudentsSkills
+             caseNumber
 
-sigmodFunction :: Float -> Float -> Float
-sigmodFunction x y = 1.0 / (1.0 + exp (-(x - y)))
+    = if count < numStudentsInt
+        -- If we haven't reached the end of the students
+        then do
+                oneStudentAnswersString <- getLine
+                -- Convert the read string into a array of floats: 1.0 or 0.0
+                -- We "map" each value to an Int, then to a Float.
+                let oneStudentAnswers =  map (fromIntegral . digitToInt) oneStudentAnswersString
+                    -- Convert from range 0,10000 to range -3,3 the number of correct answers per student
+                    oneStudentSkills =  ((sum oneStudentAnswers * range) / numAnswersFloat) + minValNewRange
+                    -- Next student
+                    in loopStudents (count + 1)
+                                    -- We pass a new list created by adding the new parsed answer to the old list.
+                                    (studentsAnswers ++ [oneStudentAnswers])
+                                    -- We create a new list by adding each element of the old list with the new answer
+                                    (zipWith (+) answersDifficulty oneStudentAnswers )
+                                    -- New list by adding new ans to old list
+                                    (scaledStudentsSkills ++ [oneStudentSkills])
+                                    -- Test case in which we are
+                                    caseNumber
 
-compareModels :: [[Float]] -> [(Int,[Float])] -> [Float] -> [Float]
-compareModels ansStud ansModels diffInModels = if null ansModels
-                                                    then diffInModels
-                                                else
-                                                    let ansModel = head ansModels
-                                                        comparedModel = compareModel (snd ansModel) (ansStud !! fst ansModel)
-                                                        in do
-                                                            compareModels ansStud (tail ansModels) (zipWith (+) comparedModel diffInModels)
-                                                            
-compareModel :: [Float] -> [Float] -> [Float]
-compareModel = zipWith (\ x y -> if x == y then 1 else 0)
+    else do
+            -- We scale from 0,100 to -3,3 the number of corrects in an answer
+            let scaledAnswersDifficulty = scaleAnswers answersDifficulty
+                -- Extract only the answers with difficulty > 2.0
+                extremeAnswersDiff = filter (\x -> snd x > difficultyOfExtremeQuestions) scaledAnswersDifficulty
+                -- We retrieve the real answers and filter only the extreme answers
+                realAnswersToExtreme = extractExtremeAnsFromReal extremeAnswersDiff (transpose studentsAnswers) []
+                -- Transpose the answers, so we now get (asnwers,students) in the matrix
+                studentsRealAnsToExtreme = transpose realAnswersToExtreme
+                -- Add the correct answers PER STUDENT
+                numGoodRealExtremeAns = map sum studentsRealAnsToExtreme
+                -- Length of the list
+                extremeAnsLen = fromIntegral $ length extremeAnswersDiff :: Float
 
-main :: IO Int
+                -- How many questions can correctly answer that are 2.0 in difficulty
+                estimate = map (\x -> 1.0 / (1.0 + 2.718 ** (-(x - 2.0))) * extremeAnsLen) scaledStudentsSkills
+
+                -- Calculate the difference between the estimation and the real answers
+                modelsDifference = zipWith (-) numGoodRealExtremeAns estimate
+                -- Extract the maximum difference
+                maxDiff = maximum modelsDifference
+                -- The index of the difference
+                index = fromJust (elemIndex maxDiff modelsDifference)
+                in do
+                    putStrLn $ "Case #" ++ show (caseNumber + 1) ++ ": " ++ show (index + 1)
+
+-- Extract the difficult answers from the real answers.
+extractExtremeAnsFromReal :: [(Int,Float)] -> [[Float]] -> [[Float]] -> [[Float]]
+extractExtremeAnsFromReal extremeAnswersDiff
+                            studentsAnswers
+                            realExtremeAns
+
+    = if null extremeAnswersDiff
+            -- If we're at the end of the list
+            -- return the constructed list.
+            then  realExtremeAns
+        else do
+                -- We hace the difficulty and the index in the real answers in oneExtremeAns
+                let oneExtremeAns = head extremeAnswersDiff
+                    -- We extract the answer from the real answers using the index in the tuple
+                    oneRealExtremeAns = studentsAnswers !! fst oneExtremeAns
+                    in do
+                        -- We go onto the next extreme tuple, since we ised the first one, we pass the tail of the list,
+                        -- tail: all from a list except the first
+                        extractExtremeAnsFromReal (tail extremeAnswersDiff)
+                                                    -- Same list to extract from. If we pass without any member
+                                                    -- the indexes doesn't work
+                                                    studentsAnswers
+                                                    -- We add the extracted answer to the list and pass it.
+                                                    (realExtremeAns ++ [oneRealExtremeAns])
+
+-- We scale the answers from range 0,100 to range -3,3
+scaleAnswers :: [Float] -> [(Int,Float)]
+scaleAnswers answers
+    = zip [0..(numAnswersInt - 1)]
+                        $ map (\x -> (((100 - x) * range) / numStudentsFloat) + minValNewRange ) answers
+
+main :: IO ()
 main = do
-        contents <- openFile "/Users/luis.nieto/HaskellTest/test2/test/test1.txt" ReadMode
-        line <- hGetLine contents
-        winPer <- hGetLine contents
-        let numTestCases = (read :: String -> Int) line
-            in
-                loopTestCases numTestCases numTestCases contents
-
--- !H,!O,!::,!...
+        -- Read lines
+        numTestCasesString <- getLine
+        winPercen <- getLine
+        -- Force evaluation of winPercen line
+        seq winPercen return 0
+        let numTestCases = read numTestCasesString :: Int
+        -- We do n test cases
+            in loopTestCases numTestCases 0
