@@ -1,74 +1,52 @@
 --Moons and umbrellas solution
+-- Explanation: In order not to generate an expense, we should not change the
+-- character, it is convenient for us that it be the same as the previous one.
+-- Since we don't need to move the character, it should stay the same as the previous one.
+-- We can remove all the question marks, this makes the character equal to the previous one.
+-- And in the end we only count the times that the character change occurred
+-- Multiply them by the value
 
--- Explanation: For test case 1 and 2 we can window through each element
--- checking the actual and the previous character. We can be greedy
--- and asume that the best case is that '?' stays as the last one
--- This solution works! The greedy solution works for test case 1 and 2
 
--- Problems that I encountered using Haskell.
--- Can't iterate so it has to be a recursive approach
--- Can't send a lot of parameters to functions.
--- Variables are inmutable outside the actual block of code.
--- Variables are inmutable!!
--- If I need a result I have to send data to methods
--- Data can only be modified through methods, if it's a String or list you need recursion.
--- Can't just take the input normally...
 
--- Solution for a recursive approach
--- Recursion over the string saving the actual and prev
--- Two whole separated recursive methods counting the CJ and JC occurrences
--- print numCJ*X + numJC*Y
+import Data.List
 
 -- Method to read a String and cast to IO Int
 getInt = read `fmap` getLine :: IO Int
+
 
 -- Can't use a simple for, but my needs are only a simple for
 -- Creation of a list and iterate in it
 for list action = mapM_ action list
 
-
-
---Method that counts the occurrences of a substring within a string
-count :: Eq a => [a] -> [a] -> Int
---Error prints
-count []  = error "empty substring"
-count sub = go
-  where
-    go = scan sub . dropWhile (/= head sub)
-    scan _ [] = 0
-    scan [] xs = 1 + go xs
-    scan (x:xs) (y:ys) | x == y    = scan xs ys
-                       | otherwise = go ys
-
-
-
 main = do
-    --Get Integer
+    -- Get integer
     n <- getInt
     --Iterate on the number of cases
     for [0..(n-1)] (\ i -> do
             --Get the whole line of the input
-            inp <- getLine
+            input <- getLine
+
             --Turn it to a list
-            lst <- return (words inp)
+            list <- return (words input)
+
             --Head of the list! the first element
-            x <- return (read (head lst) :: Int)
+            costX <- return (read (head list) :: Int)
+
             --Head of the tail is the middle element
-            y <- return (read (head (tail lst)) :: Int)
+            costY <- return (read (head (tail list)) :: Int)
+
             --Head of the tail of the tail is the last element
-            mural <- return (head (tail (tail lst)))
-            --Clean the String because recursion might fail
-            let muralString=" " ++mural++" "
-            --Super greedy mode, remove ?
-            --Funtion that filters a string, recursion
-            let muralStringLimpia = filter (not . (`elem` "?")) muralString
-            --Get the count of CJ sometimes fails
-            let x1 = count "CJ" muralStringLimpia
-            --Get the count of JC sometimes fails
-            let x2 = count "JC" muralStringLimpia
-            --Print the result
-            putStrLn $ "Case #" ++ show (i+1) ++ ": " ++ show ((x1*x) + (x2*y))
+            mural <- return (head (tail (tail list)))
 
+            -- Remove question mark
+            let muralClean = filter (not . (`elem` "?")) mural
 
+            -- Count JC in the string
+            let qtyJC = length . filter (isPrefixOf "JC") . tails $ muralClean
 
+            -- Count CJ in the string
+            let qtyCJ = length . filter (isPrefixOf "CJ") . tails $ muralClean
+
+            --Print the answer
+            putStrLn $ "Case #" ++ show (i+1) ++ ": " ++ show ((qtyCJ*costX) + (qtyJC*costY))
         )
