@@ -7,21 +7,21 @@ def reversed(arr, i, j)
 end
 
 def reversort_engineering() 
-    n, c = gets.split(" ").map(&:to_i)
-    if c < n - 1 or c > ((n * (n + 1)) / 2) - 1
+    sizeOfArray, cost = gets.split(" ").map(&:to_i)
+    if cost < sizeOfArray - 1 or cost > ((sizeOfArray * (sizeOfArray + 1)) / 2) - 1
         return "IMPOSSIBLE"
     end
-    arrOfRange = (1..n).to_a
-    for i in (0..n-2).to_a.reverse()
-        m = [c - i, n - i].min
-        c -= m
-        reversed(arrOfRange, i, i + m - 1)
+    arrOfRange = (1..sizeOfArray).to_a
+    for i in (0..sizeOfArray-2).to_a.reverse()
+        minimunCost = [cost - i, sizeOfArray - i].min
+        cost -= minimunCost
+        reversed(arrOfRange, i, i + minimunCost - 1)
     end
     return arrOfRange.map(&:to_s).join(" ")
 end
 
-(1..gets.chomp.to_i).each do |n|
-    puts("case ##{n}: #{reversort_engineering()}")
+(1..gets.chomp.to_i).each do |caseNumber|
+    puts("case ##{caseNumber}: #{reversort_engineering()}")
 end
 
 
