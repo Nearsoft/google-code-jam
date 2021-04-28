@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,28 +5,21 @@ import java.util.regex.Pattern;
 public class Solution {
 	public static short ncases=0;
 	public static void main(String[] args) {
+		//Creates the input object
 		Scanner input = new Scanner(System.in);
-		
-		//String readLine =
-		//Case[] Cases = ReadCases(getName("tests","3", "input"));
-		//String[] Solutions = ReadSol(getName("tests","3", "output"));
+		//Creates the solver object
 		Solver solver = new Solver();
-		
-		//System.out.format("Number of cases %d%n",ncases);
-		//System.out.print("N: ");
+		//Read the number of cases
 		int n = Integer.parseInt(input.nextLine());
-		//System.out.println(n);
+		//Creates the object that stores the information structured
 		Case caso = new Case();
 		String data;
 		short i=0;
-		short corr=0;
-		//System.out.println(Solutions[0]);
+		//Reads every case
 		for (i=0;i<n;i++){
-			//System.out.format("X:%d Y:%d S:%s %n", cas.X,cas.Y,cas.S);
-			//System.out.println("Line :");
+			//Read the data input
 			data = input.nextLine();
-			//System.out.println(data);
-			//System.out.format("S :%s", data);
+			
 		    //Split the line by spaces 
 		    String[] datas = data.split(" ");
 		    //Get and converts the weights X and Y
@@ -36,87 +27,12 @@ public class Solution {
 		    short Y = Short.parseShort(datas[1]);
 		    //Extracts the string input
 		    String S = datas[2];
+			//Assigns the values to data
 		    caso.set_data(X, Y, S);
 		    //Assign the values to its array
 		    String sol = solver.solve(caso, i);
 		}
 	}
-	
-	public static String getName(String type,String number, String IO) {
-		String name ="";
-		String pathBase = "/Users/nsl-intern/eclipse-workspace/Test1/src/data/";
-		String typTest = type;
-		String noTest =number;
-			
-			
-		String end = "_"+IO+".txt";
-		if (typTest=="test"){
-			// "/Test1/src/data/test_set_2/ts2_input.txt"
-			name=pathBase+typTest+"_set_"+noTest+"/ts"+noTest+end;
-		}
-		else {
-			//  "/Test1/src/data/sample_test_set_1/sample_ts1_input.txt"
-			name=pathBase+"sample_"+"test_set_"+noTest+"/sample_ts"+noTest+end;;
-		}
-		return name;
-	}
-	// Read the file to be processed and returns an object with the information ordered
-	public static Case[] ReadCases(String filename) 
-	{
-		Case[] Cases;
-		File myObj = new File(filename);
-		try {
-			try (Scanner myReader = new Scanner(myObj)) {
-				ncases = Short.parseShort(myReader.nextLine());
-				Cases = new Case[ncases];
-				short i =0;
-				while (myReader.hasNextLine()) {
-					//Reads next line of the file
-				    String data = myReader.nextLine();
-				    //Split the line by spaces 
-				    String[] datas = data.split(" ");
-				    //Get and converts the weights X and Y
-				    short X = Short.parseShort(datas[0]);
-				    short Y = Short.parseShort(datas[1]);
-				    //Extracts the string input
-				    String S = datas[2];
-				    //Assign the values to its array
-				    Cases[i] = new Case();
-				    Cases[i].set_data(X, Y, S);
-				    i++;
-				    }
-			}
-			return Cases;
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Cases = null;
-			return Cases;
-		}
-	}
-	public static String[] ReadSol(String filename){
-		String[] sol = new String[ncases];
-		File myObj = new File(filename);
-		try {
-			try (Scanner myReader = new Scanner(myObj)) {
-				short i =0;
-				while (myReader.hasNextLine()) {
-					//Reads next line of the file 
-				    //
-				    sol[i]= myReader.nextLine();
-				    i++;
-				    }
-			}
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			sol = null;
-		}
-		return sol;
-	}
-	
 }
 // Class that contains the information
 class Case{
@@ -145,23 +61,23 @@ class Solver{
 		else {sol=solveHard();}
 		return sol;
 	}
+	//Solves the problem when it has negative weights
 	public String solveHard(){
 		String sol = "";
 		String s;
 		String s2;
 		String qm = Pattern.quote("?");
-		//System.out.format("Initial S:%n%s%n",this.S);
+		//Replaces some easy patterns
 		s = subAQQA(this.S);
 		int cost =0;
 		
 		Pattern pattern = Pattern.compile(qm);
 		Matcher matcher = pattern.matcher(s);
+		//Check if the string has ? symbol
 		if(!matcher.find()) {
 			return solveEasy();
 		}
-		if (this.i>98) {
-			//System.out.println("Cuidado");
-		}
+		//Solves when J or C are not present in S
 		pattern = Pattern.compile("C|J");
 		matcher = pattern.matcher(s);
 		if(!matcher.find()) {
@@ -184,11 +100,10 @@ class Solver{
 			System.out.println(sol);
 			return sol;
 		}
-		
+		//Creates a patterns that maths ?ns 
 		pattern = Pattern.compile(qm+"+");
 	    matcher = pattern.matcher(s);
-	    //System.out.format("S : %n%s%n", s);
-	    
+	    //Checks if ? appears
 	    if(matcher.find()){
 	    	int fE = matcher.end();
 	    	int cE = fE+1;
@@ -197,9 +112,10 @@ class Solver{
 	    		cE=l;
 	    		}
 	    	s2=s.substring(0,cE);
-	    	//System.out.println(s2);
+			//Get the cost of the first chunk
 	    	cost = Cost(s2);
 	    	int cS = cE-1;
+			//Creates several chunks and calculates their costs
 	    	while(matcher.find()){
 	    		fE = matcher.end();
 		    	cE = fE+1;
@@ -208,57 +124,62 @@ class Solver{
 		    		cE=l;
 		    		}
 		    	s2=s.substring(cS,cE);
-		    	//System.out.println(s2);
+		    	//Sum the cost of every chunk
 		    	cost += Cost(s2);
 		    	cS = cE-1;
 	    	}
 	    	s2=s.substring(cS);
-	    	//System.out.println(s2);
+	    	//Get the last chunk and sum its cost
 	    	cost += Cost(s2);
 	    }
 	    else {
-	    	//System.out.println("Caso raro");
-	    	//System.out.println(s);
+	    	//Get the cost
 	    	cost =Cost(s);
 	    	}
 	    
-	    //System.out.format("SC:%d EC:%d %n",cutS,cutE);
 		sol =String.format("Case #%d: %d",this.i,cost);
 		System.out.println(sol);
-		//System.out.println();
+		
 		return sol;
 	}
+	// Calculates the cost of a string
 	public int Cost(String s) {
 		int cost;
 		String s2;
 		Pattern pattern;
 		Matcher matcher;
-		//String qm = Pattern.quote("?");
-		
+		//If the string contains only one 
 		if (s.length()<=1) { cost =0;}
 		else { 
+			//L1 first letter
+			//L2 second letter
 		 	char L1 = s.charAt(0);
 		 	char L2 = s.charAt(1);
 		 	if (L1=='?') {
+				 //If the first letter is ?
 		 		s2=s.substring(1);
+				 //Tries with J and C and obtains the minimum cost
 		 		cost = minimum(s2, 'x');
 		 	}
 		 	else {
+				 //If the second letter is ?
 		 		if(L2=='?') {
-		 			
+					 //Tries with J and C and obtains the minimum cost
 		 			s2=s.substring(2);
 		 			cost = minimum(s2,L1);
-			 		
-		 			
 		 		}
+				 //If the second letter is equal to the first letter
 		 		else if(L1==L2 ) {
+					 //Finds when this patterns ends
 		 			pattern = Pattern.compile("^"+L1+"+");
 		 		    matcher = pattern.matcher(s);
 		 		    matcher.find();
 		 		    int i = matcher.end();
+					 //Cut the patterns and calculates its cost
 		 		    s2 = s.substring(i-1);
 		 			cost = Cost(s2);
 		 			}
+				//If the letters are defined calculates its cost
 		 		else if(L1=='C'&&L2=='J') {
 		 			s2=s.substring(2);
 		 			cost = this.X+Cost("J"+s2);
@@ -269,33 +190,10 @@ class Solver{
 		 			
 		 		}
 		 	}
-			
 		}
 		return cost;
 	}
-	public int[] minimS(int l,char A,char B) {
-		int[] cost =new int[2];
-		int cost1;
-		int cost2;
-		if(l==0) {
-			cost1 = Cost(A+"CJ"+B);
-			cost2 = Cost(A+"JC"+B);
-		}
-		else {
-			cost1 = Cost(A+"C"+B);
-			cost2 = Cost(A+"J"+B);
-		}
-		
-		if(cost1>cost2) {
-			cost[0]=cost2;
-			cost[1]=0;
-		}
-		else {
-			cost[0]=cost1;
-			cost[1]=1;
-			}
-		return cost;
-	}
+	//Evalutes ? and returns the minimum cost
 	public int minimum(String s,char a) {
 		int costC,costJ;
 		String op1,op2;
@@ -312,46 +210,34 @@ class Solver{
 		if (costC>costJ) {return costJ;}
  		else {return costC;}
 	}
+	// Replace common patterns
 	public String subAQQA(String S) {
 		String s=S;
-		//s=s.replaceAll("CC+", "C");
-		//s=s.replaceAll("JJ+", "J");
-		
 	    String cc = getQQpat("C","C");
-	    //System.out.print(cc);
 	    s=s.replace("C??C", cc);
-	    
+
 	    String jj = getQQpat("J","J");
-	    //System.out.print(jj);
 	    s=s.replace("J??J", jj);
 	    
 	    
 	    String cj = getQQpat("C","J");
-	    //System.out.print(jj);
 	    s=s.replace("C??J", cj);
 	    
 	    String jc = getQQpat("J","C");
-	    //System.out.print(jc);
 	    s=s.replace("J??C", jc);
 	    
 	    cc = getQpat("C","C");
-	    //System.out.print(jc);
 	    s=s.replace("C?C", cc);
 	    
 	    jj = getQpat("J","J");
-	    //System.out.print(jc);
 	    s=s.replace("J?J", jj);
 	    
 	    cj = getQpat("C","J");
-	    //System.out.print(cj);
 	    s=s.replace("C?J", cj);
 	    
 	    jc = getQpat("J","C");
-	    //System.out.print(jc);
 	    s=s.replace("J?C", jc);
 	    
-	    
-		
 		return s;
 	}
 	public String getQpat(String A,String B) {
@@ -382,6 +268,8 @@ class Solver{
 		}
 		return r;
 	}
+	
+	//Solves the problem when it doesn't have negatives weights
 	public String solveEasy() {
 		int cost=0;
 		String sol;
@@ -393,6 +281,7 @@ class Solver{
 		return sol;
 		
 	}
+	//Counts the number of pattern's appearences 
 	public short coPat(String pat) {
 		short count=0;
 		Pattern P = Pattern.compile(pat);
