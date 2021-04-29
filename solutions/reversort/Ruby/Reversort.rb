@@ -32,9 +32,9 @@ T = gets.to_i
           min = list[j]
         end
       end
-  
+#Calculate the cost, adding the result of substracting current index to the minimum index, and then adding 1
       cost += min_idx-i+1
-  
+#Reverse the list from current index to the location of the min element
       list = reverse(list, i, min_idx)
     end
     puts "Case ##{t}: #{cost}"
