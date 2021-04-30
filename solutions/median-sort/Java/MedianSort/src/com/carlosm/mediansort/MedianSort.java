@@ -1,91 +1,77 @@
 package com.carlosm.mediansort;
-import java.util.*;
+import java.util.Scanner;
 
 //Remember change MedianSort
 public class MedianSort {
     public static void main(String[] args) {
-        Scanner fs = new Scanner(System.in);
-        int T = fs.nextInt();
-        int N = fs.nextInt();
-        int Q = fs.nextInt();
+        Scanner input = new Scanner(System.in);
+        int tests = input.nextInt();
+        int numbers = input.nextInt();
+        int querys = input.nextInt();
         //Loop according to number of test cases
-        for (int i=1; i<=T; i++){
+        for (int i=1; i<=tests; i++){
             //Creating list of number
-            int [] list = {1, 2};
+            int [] arrayNumbers = {1, 2};
             //Adding numbers depending on int N
-            for(int ii=2; ii<N; ii++){
-                System.out.println("Iteracion: " + ii);
-                list=add(list, ii+1, fs);
+            for(int ii=2; ii<numbers; ii++){
+                arrayNumbers=addElement(arrayNumbers, ii+1, input);
             }
-            if(!printAnswers(list, fs)){
+            if(!printAnswers(arrayNumbers, input)){
                 return;
             }
         }
     }
+
     //This function add the rest of number
-    static int[] add(int[] list, int toAdd, Scanner fs){
-        System.out.println("Tamaño de lista: " + list.length);
-        System.out.println("Añadido: "+ toAdd);
-        int targetIndex=getTargetIndex(list, toAdd, 0, list.length, fs);
-        System.out.println("Target: " + targetIndex + "  longitud list: " + list.length);
-        //Creamos nueva array
+    static int[] addElement(int[] list, int numbertoAdd, Scanner fs){
+        //Getting the index of the adding number
+        int targetIndex=getTargetIndex(list, numbertoAdd, 0, list.length, fs);
+
+        //Creating new array, because of new element
         int[] response = new int[list.length + 1];
-        //Barrido de elementos para response
+
+        //Adding the elements of the old array to the new one
         for(int i=0; i<targetIndex; i++){
             response[i]=list[i];
         }
-        //Añadimos nuevo valor
-        response[targetIndex]=toAdd;
+
+        //Adding new element
+        response[targetIndex]=numbertoAdd;
 
         //Validacion
         for (int i=targetIndex+1; i<response.length; i++) {
             response[i]=list[i-1];
-            System.out.println("i de add: "+ i);
-        }
-
-        //Verificar que tenemos en response
-        for (int element: response){
-            System.out.println("Elemento de response: " + element);
         }
         return response;
     }
     //Obtaining the index of the answer of google
     static int getTargetIndex(int[] list, int toAdd, int l, int r, Scanner fs){
-        if (l==r) return l;
+        if (l==r){
+            return l;
+        }
 
         if (l+1==r){
             if (r!=list.length) r++;
             else l--;
         }
 
-        System.out.println("l: " + l);
-        System.out.println("r: " + r);
-        int leftmostpivot=l, rightmostpivot=r-1;
-        System.out.println("pivote izq: " + leftmostpivot);
-        System.out.println("pivote der: " + rightmostpivot);
-        //Divisiones de acuerdo al incremento
-        int nSplits = rightmostpivot-leftmostpivot+1;
-        System.out.println("numero de divisiones: " + nSplits);
-        int n1= leftmostpivot+((nSplits-1)/3);
-        System.out.println("n1: " + n1);
-        int n2= rightmostpivot-((nSplits-1)/3);
-        System.out.println("n2:" + n2);
-        //Asking user(google)
-        int med = ask(toAdd,list[n1], list[n2], fs);
-        if(med==list[n1]){
-            System.out.println("Opcion 1");
-            //Funciona cuando termina
-            return getTargetIndex(list, toAdd,l,n1,fs);
+        int leftmostpivot = l;
+        int rightmostpivot = r-1;
+
+        int number1 = leftmostpivot+((rightmostpivot-leftmostpivot)/3);
+        int number2 = rightmostpivot-((rightmostpivot-leftmostpivot)/3);
+
+        //Asking to judge
+        int med = ask(toAdd,list[number1], list[number2], fs);
+
+        if(med==list[number1]){
+            return getTargetIndex(list, toAdd, l, number1, fs);
         }
-        else if(med==list[n2]){
-            System.out.println("Opcion 2");
-            //Funciona cuando termina
-            return getTargetIndex(list, toAdd, n2+1, r, fs);
+        else if(med==list[number2]){
+            return getTargetIndex(list, toAdd, number2+1, r, fs);
         }
         else {
-            System.out.println("Opcion 3");
-            //Funciona cuando termina
-            return getTargetIndex(list, toAdd, n1+1,n2,fs);
+            return getTargetIndex(list, toAdd, number1+1, number2, fs);
         }
     }
 
@@ -95,14 +81,14 @@ public class MedianSort {
         return fs.nextInt();
     }
 
-    //Checking if sorted numbers are correct
-    static boolean printAnswers(int[] an, Scanner fs){
+    //Checking if sorted numbers are correct to continue
+    static boolean printAnswers(int[] an, Scanner input){
         for (int i=0; i<an.length; i++){
             if (i!=0) System.out.print(" ");
             System.out.print(an[i]);
         }
         System.out.println();
-        int response = fs.nextInt();
+        int response = input.nextInt();
         return response==1;
     }
 }
