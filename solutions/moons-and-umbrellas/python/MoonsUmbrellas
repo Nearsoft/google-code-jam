@@ -1,0 +1,36 @@
+def solve(x,y,S):
+    if (S.count('J') == 0) and (S.count('C') == 0):
+      return 0
+
+    S = list(S)
+    indices = [ i for i, c in enumerate(S) if c == "?" ]
+    for i in indices:
+        if i == 0:
+            n = 0
+            while S[n] == "?":
+                n = n + 1
+            S[i] = S[n]
+
+        elif S[i-1] == "J":
+
+            S[i] = "J"
+        elif S[i-1] == "C":
+            S[i] = "C"
+    S = "".join(S)
+    res = 0
+    for cr in range(len(S)-1):
+        c2 = S[cr] + S[cr+1]
+
+        if c2 == "JC":
+            res = res+y
+        if c2 == "CJ":
+            res = res+x
+    return res
+    
+
+
+if __name__ == "__main__":
+    T = int(input())
+    for t in range(1,T+1):
+        x,y,S = input().split()
+        print("Case #{}:".format(t),solve(int(x),int(y),S))
