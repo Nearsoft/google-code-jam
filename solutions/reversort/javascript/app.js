@@ -4,8 +4,6 @@ var inputNumber = 1;
 
 var actualCaseNum = 1;
 
-var actualArraySize = 0;
-
 var numTestCases = 0;
 
 var arrays = [];
@@ -50,39 +48,24 @@ const obtainData = (input) => {
     if (!isNaN(parseInt(input))) {
       numTestCases = parseInt(input);
       inputNumber++;
-      console.log(`\nType array ${actualCaseNum} size: `);
-    } else {
-      console.log('Invalid Input');
     }
   } else if (inputNumber === 2) {
     actualArraySize = input;
-
     inputNumber++;
-    console.log(
-      `Type ${actualArraySize} elements of array ${actualCaseNum} separated by space: `
-    );
   } else if (inputNumber === 3) {
     var array = input.split(' ');
-    if (array.length != actualArraySize) {
-      console.log('Given more/less than ' + actualArraySize + ' Try again');
-    } else {
-      arrays.push(array);
+    arrays.push(array);
 
-      if (actualCaseNum === numTestCases) {
-        console.log();
-        solution();
-      } else {
-        actualCaseNum++;
-        console.log(`\nType array ${actualCaseNum} size: `);
-        inputNumber = 2;
-      }
+    if (actualCaseNum === numTestCases) {
+      solution();
+    } else {
+      actualCaseNum++;
+      inputNumber = 2;
     }
   }
 };
 
 const main = () => {
-  console.log('Type the number of test cases: ');
-
   rl.on('line', obtainData);
 };
 

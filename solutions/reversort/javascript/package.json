@@ -1,6 +1,6 @@
 {
   "name": "reversort",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reversort program",
   "main": "index.js",
   "scripts": {
