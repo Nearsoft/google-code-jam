@@ -6,13 +6,13 @@ class Program {
   }
 
   static void run() {
-    Console.WriteLine("Enter number of cases: ");
+    //Console.WriteLine("Enter number of cases: ");
     int num_cases = Convert.ToInt32(Console.ReadLine());
     for (int i = 0; i < num_cases; i++) {
-      Console.WriteLine("Enter array length: ");
+      //Console.WriteLine("Enter array length: ");
       int len = Convert.ToInt32(Console.ReadLine());
       
-      Console.WriteLine("Enter array values separated by spaces");
+      //Console.WriteLine("Enter array values separated by spaces");
       string inp = Console.ReadLine();
       string[] input_numbers = inp.Split(" ");
 
