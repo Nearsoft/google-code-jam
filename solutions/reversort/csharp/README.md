@@ -8,7 +8,6 @@ Solution for Reversort algorithm in C#.
 Pull image and start the container.
 ```
 docker run -it --rm -v "$(pwd):/reversort" mcr.microsoft.com/dotnet/sdk 
-
 ```
 Once in the container, go to the ```reversort``` directory.
 
