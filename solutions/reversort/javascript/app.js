@@ -53,7 +53,9 @@ const obtainData = (input) => {
     actualArraySize = input;
     inputNumber++;
   } else if (inputNumber === 3) {
-    var array = input.split(' ');
+    var array = input.split(' ').map(function (x) {
+      return parseInt(x, 10);
+    });
     arrays.push(array);
 
     if (actualCaseNum === numTestCases) {
