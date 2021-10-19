@@ -43,7 +43,7 @@ public static void main(String[] args){
                 elements[i] = scan.nextInt()
             }
             int total = counter(elements)
-            println "Case# ${tstNumber} :  ${total}"
+             println("Case #" + tstNumber + ": " + total)
         }
     }
 }
