@@ -21,3 +21,6 @@ To test the algorithm, run the following command.
 ```
 dotnet run
 ```
+
+# If running it in Google Code Jam
+Run just the main.cs
