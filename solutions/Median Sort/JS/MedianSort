@@ -1,0 +1,92 @@
+var readline = require('readline');
+var readline = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const question = () => {
+    return new Promise((resolve, reject) => {
+      readline.question('', (prep) => {
+        readline.close();
+        resolve(prep)
+      })
+    })
+  }
+  
+  
+  
+  async function main() {
+    var input = await question();
+    console.log(input)
+    
+    var numberArray = input.split(' ').map(function(item) {
+        return parseInt(item, 10);
+    });
+    var testCases = numberArray[0];
+    var numberOfElements = numberArray[1];
+    var numberOfQuestions = numberArray[2];
+
+    while (testCases > 0) {
+        if (!medianSort(numberOfElements, numberOfQuestions)) {
+            break;
+        }
+        testCases--;
+    }
+    return true;
+  }
+
+main()
+
+
+
+//Median sort
+async function medianSort(numberOfElements2, numberOfQuestions2) {
+	var numbers = [1, 2];
+	for (var i = 3; i < numberOfElements2 + 1; i++) {
+		//Ternary Search
+		var l = 0;
+		var r = numbers.length - 1;
+		while ((r - l) >= 1 && numberOfQuestions2 > 0) {
+
+			// Find the leftPivot and ritghtPivot
+			var leftPivot = l + parseInt((r - l) / 3, 10);
+			var ritghtPivot = r - parseInt((r - l) / 3, 10);
+
+			var median = askGoogle(numbers[leftPivot], numbers[ritghtPivot], i);
+
+			numberOfQuestions2 -=1;
+
+			if(median == numbers[leftPivot]){
+				r = leftPivot -1;
+				if(l == r){
+				r += 1;
+				}
+			}else if(median == numbers[ritghtPivot]){
+				l = ritghtPivot + 1;
+				if(l == r){
+				l -=1;
+				}
+			}else{
+				l = leftPivot + 1;
+				r = ritghtPivot -1;
+				if(l == r){
+				l -= 1;
+				}
+		  }
+    }
+    numbers.splice(l, 0, i);
+	}
+	return await checkResult(numbers);
+}
+
+async function checkResult(numbers) {
+	console.log(numbers.split(" "));
+    var number = await question()
+	return parseInt(number) == 1
+}
+
+async function askGoogle(a, b, c) {
+	console.log(a, b, c);
+	var number = await question()
+	return parseInt(number)
+}
