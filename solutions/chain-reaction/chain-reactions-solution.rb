@@ -1,7 +1,6 @@
-$R = 0
+$respuesta_chida = 0
 T = gets.to_i
 def dfs(curr_node, fun, mod)
-    puts curr_node.to_s
   if (!mod[curr_node].nil?)
     min_val = 1000000001
     sum = 0
@@ -12,13 +11,13 @@ def dfs(curr_node, fun, mod)
             min_val = aux
         end
     end 
-    $R += sum - min_val
+    $respuesta_chida += sum - min_val
     return [min_val, fun[curr_node]].max
   end 
   return fun[curr_node]
 end
 for t in 1..T
-  $R = 0
+  $respuesta_chida = 0
   n = gets.to_i
   fun = [0] + gets.split(" ").map(&:to_i)
   mod = []
@@ -29,6 +28,5 @@ for t in 1..T
     mod[p] << i
     i += 1
   end
-
-  puts "Case #" + t.to_s + ": " + (dfs(0, fun, mod) + $R).to_s + "\n"
+  puts "Case #" + t.to_s + ": " + (dfs(0, fun, mod) + $respuesta_chida).to_s + "\n"
 end
