@@ -25,8 +25,6 @@ function readline() {
 	return inputString[currentLine++];
 }
 
-// Make a Snippet for the code above this and then write your logic in main();
-
 function main() {
 	// Declare and read the number of test cases.
 	var T;
@@ -40,7 +38,6 @@ function main() {
 }
 
 function solve() {
-	// Declare variables N and M.
 	var rows, cols;
 	// Read the integers from the standard input.
 	[rows, cols] = readline()
