@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-public class Dice{
+public class d1000000{
     static Scanner inputObject = new Scanner(System.in); //Scaner for the input
     public static void main(String[] args) {
         int T = inputObject.nextInt(); //Read T = Number of cases
