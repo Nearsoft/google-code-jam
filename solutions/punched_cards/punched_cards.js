@@ -1,7 +1,7 @@
 
     // Punched Cards
   
-    // Individual Problem - Manuel Cota - Apprentice Batch 2022 D
+    // Individual Problem - Manuel Cota - Apprentice 2022 D
 
 // The following code is here so that the program can correctly communicate
 // with the input and output format in the Google Code Jam platform.
