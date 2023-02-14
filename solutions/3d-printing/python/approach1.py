@@ -66,4 +66,4 @@ for i in range(1, t+1):
     printer2 = [int(s) for s in input().split(' ')]
     printer3 = [int(s) for s in input().split(' ')]
     print(f"Case #{i}: {solve([printer1, printer2, printer3])}")
-    solve()
+    
