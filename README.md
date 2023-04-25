@@ -21,3 +21,8 @@ This repository shows reference solutions for several Google Code Jam problems.
 15. [T9 spelling](solutions/t9-spelling)
 16. [Tidy numbers](solutions/tidy-numbers)
 17. [Trouble sort](solutions/trouble-sort)
+18. [Punched cards](solutions/punched_cards/)
+19. [3D Printing](solutions/3DPrinting/)
+20. [d1000000](solutions/d1000000/)
+21. [Chain reactions](solutions/chain-reactions/)
+22. [Twisty Little Passages](solutions/twisty-little-passages/)
