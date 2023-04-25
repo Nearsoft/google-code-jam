@@ -26,3 +26,4 @@ This repository shows reference solutions for several Google Code Jam problems.
 20. [d1000000](solutions/d1000000/)
 21. [Chain reactions](solutions/chain-reactions/)
 22. [Twisty Little Passages](solutions/twisty-little-passages/)
+23. [Double or One thing](solutions/double-or-one-thing/)
