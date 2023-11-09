@@ -1,0 +1,15 @@
+D:\Descargas\equalsum_app\bin\Debug\net6.0\equalsum_app.exe
+D:\Descargas\equalsum_app\bin\Debug\net6.0\equalsum_app.deps.json
+D:\Descargas\equalsum_app\bin\Debug\net6.0\equalsum_app.runtimeconfig.json
+D:\Descargas\equalsum_app\bin\Debug\net6.0\equalsum_app.dll
+D:\Descargas\equalsum_app\bin\Debug\net6.0\equalsum_app.pdb
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.csproj.AssemblyReference.cache
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.GeneratedMSBuildEditorConfig.editorconfig
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.AssemblyInfoInputs.cache
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.AssemblyInfo.cs
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.csproj.CoreCompileInputs.cache
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.dll
+D:\Descargas\equalsum_app\obj\Debug\net6.0\refint\equalsum_app.dll
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.pdb
+D:\Descargas\equalsum_app\obj\Debug\net6.0\equalsum_app.genruntimeconfig.cache
+D:\Descargas\equalsum_app\obj\Debug\net6.0\ref\equalsum_app.dll
