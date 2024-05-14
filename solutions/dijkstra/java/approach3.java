@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Dijkstra {
+public class approach3 {
 
     private static int L;
     private static long X;

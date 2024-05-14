@@ -3,12 +3,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Ominoes {
+
+public class approach5 {
 	public static void main(String args[])
 	{
-		new Ominoes();
+		new approach5();
 	}
-	public Ominoes() {
+	public approach5() {
 		
 		String data[] = ReadFile("D-large-practice.in");
 

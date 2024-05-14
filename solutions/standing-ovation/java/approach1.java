@@ -8,12 +8,12 @@ import java.util.List;
  * @author Ramon Ernesto Jimenez Rodriguez
  * @version v1.0
  */
-public class StandingOvation {
+public class approach1 {
 
     /**
      * An empty constructor for this class
      */
-    public StandingOvation(){
+    public approach1(){
     }
 
     /**

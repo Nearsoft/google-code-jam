@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Omino{
+public class approach3{
 
     public String getWinner(int x, int r, int c){
 
@@ -78,7 +78,7 @@ public class Omino{
 
     public static void main(String[] args){
 
-        Omino o = new Omino();
+        approach3 o = new approach3();
         Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
         int testCases = in.nextInt();
 

@@ -3,7 +3,7 @@ package com.company;
 
 import java.util.*;
 import java.io.*;
-public class Main {
+public class approach1 {
 
     public static void main(String[] args) throws Exception{
         String inputFilePath = "input2.txt";

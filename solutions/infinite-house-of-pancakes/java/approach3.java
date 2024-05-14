@@ -1,14 +1,15 @@
 import java.io.*;
 import java.util.*;
 import java.io.PrintWriter;
-public class InfiniteHouseOfPancakes{
+
+public class approach3{
 	int minutes = 0;
 
 	public static void main(String arg[]){
-		new InfiniteHouseOfPancakes();
+		new approach3();
 	}
 
-	public InfiniteHouseOfPancakes(){
+	public approach3(){
 		WriteFile("small-output.txt",outputString("B-small-practice.in"));
 		WriteFile("large-output.txt",outputString("B-large-practice.in"));
 		/*String[] arr = new String[]{"9"};
