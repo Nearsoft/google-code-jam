@@ -1,143 +1,107 @@
+(use '[clojure.string :only (split triml)])
 
-; All commented code was used to make the status more visible.
+(defn parseInt [s]
+  (Integer. (re-find #"[0-9]*" s)))
+(defn abs [n] (max n (- n)))
 
 
-(def TestCases (read-string(read-line)))
-;(println TestCases" Test cases")
-(dotimes [i TestCases]
-
-    (def spacey1x1 0)
-    (def spacey1x2 0)
-    (def spacey1x3 0)
-    (def spacey2x1 0)
-    (def spacey2x2 0)
-    (def spacey2x3 0)
-    (def spacey3x1 0)
-    (def spacey3x2 0)
-    (def spacey3x3 0)
-
-    (def row 2)
-
-    (def desiredArea (read-string(read-line)))
-;    (println " Area deseada:"desiredArea)
-    (def calculatedClmns (/ (+ desiredArea 2) 3))
-    (def columns (max 3 calculatedClmns))
-    ;(println "calculated columns: "calculatedClmns)
-;    (println "MAX columns: "columns)
-    (def pointerUnfinishedClmn 1)
-    (def endApp 0)    
-
-    (while (== endApp 0) 
-
-       (def nextColumn (+ pointerUnfinishedClmn 1))
-       (def nextColumn (min nextColumn (- columns 1)))
-        
-    ;   (println "next column "nextColumn)
-
-;       (println "Coordenadas enviadas:")
-       (println row" "nextColumn)
-    ;   (flush)
-        (def coordX (read-string(read-line))) ;Pointer value of X
-        (def coordY (read-string(read-line))) ;POinter value of Y
-
-;        (println "")
-;       (println "Coordenadas recibidas:")
-       (println coordX)
-
-        (if (== coordX 0) 
-            (if (== coordY 0) 
-                (def endApp 1) nil 
-            ) nil 
+(defn updateTargets [targets [tx ty]]
+    ;(compare-and-set! targets @targets (update @targets target - 1))
+    (loop [[[x y :as key] & ks] (keys @targets)]
+        (do 
+            (if (and (<= (- x 1) tx (+ x 1)) (<= (- y 1) ty (+ y 1)))
+                (swap! targets assoc key (dec (get @targets key))))
+            (if (>= (count ks) 1) (recur ks))
         )
+))
 
-;                (println "Aun no termina")
+(defn getBestTarget [targets ]
+    
+   (key (apply max-key val @targets)) 
+)
 
-        (if (== coordY pointerUnfinishedClmn)
-            (do 
-                (if (== coordX (- row 1)) 
-                    (def spacey1x1 1) nil 
-                ) 1
-                (if (== coordX row) 
-                    (def spacey1x2 1) nil 
-                ) 
-                (if (== coordX (+ row 1)) 
-                    (def spacey1x3 1) nil 
-                )
+(defn contains [v o]
 
- ;               (println "revision columna izq")
-            )nil
-             
-        )
+    (not(= -1 (.indexOf v o))
 
-        (if (== coordY (+ pointerUnfinishedClmn 1))
-            (do
-                (if (== coordX (- row 1)) 
-                    (def spacey2x1 1) nil 
-                ) 
-                (if (== coordX row) 
-                    (def spacey2x2 1) nil 
-                ) 
-                (if (== coordX (+ row 1)) 
-                    (def spacey2x3 1) nil 
-                ) 
-
-  ;              (println "revision columna central")
-            )nil
-        )
-
-        (if (== coordY (+ pointerUnfinishedClmn 2))
-            (do    
-                (if (== coordX (- row 1)) 
-                    (def spacey3x1 1) nil 
-                ) 
-                (if (== coordX row) 
-                    (def spacey3x2 1) nil 
-                ) 
-                (if (== coordX (+ row 1)) 
-                    (def spacey3x3 1) nil 
-                )
-
-  ;              (println "revision columna derecha")
-            ) nil
-        )
+))
 
 
-        (if (== spacey1x1 1)
-            (if (== spacey1x2 1)
-                (if (== spacey1x3 1)
-                    (do 
-
-                    (def pointerUnfinishedClmn (+ pointerUnfinishedClmn 1))
-                    
-                    (def spacey1x1 spacey2x1)
-                    (def spacey1x2 spacey2x2)
-                    (def spacey1x3 spacey2x3)
-
-                    (def spacey2x1 spacey3x1)
-                    (def spacey2x2 spacey3x2)
-                    (def spacey2x3 spacey3x3)
-
-                    (def spacey3x1 0)
-                    (def spacey3x2 0)
-                    (def spacey3x3 0)
-                    
-                    ) nil
-                    
-                )nil
-            )nil
-        )
-
-
- ;       (println "Matriz de seleccion:")
-        
- ;       (println "Y:"pointerUnfinishedClmn""(+ pointerUnfinishedClmn 1)""(+ pointerUnfinishedClmn 2))
- ;       (println "  "spacey1x1""spacey2x1""spacey3x1)
- ;       (println "  "spacey1x2""spacey2x2""spacey3x2)
- ;       (println "  "spacey1x3""spacey2x3""spacey3x3)
-        
-
-     )
-    (println "FIN DE RELLENO")
+(defn startShooting [targets]
+    (def x -1)
+    (def y -1)
+    (def alreadyPrepared (atom []))
+    
+  (while (and 
+              (not (= x 0))
+              (not (= y 0))
+          ) (do
+                  (let [[x y] (getBestTarget targets)]
+                    (println x y)
+                  )
+                  
+                  (def input (split (read-line) #"\s"))
+                  (def x (parseInt (nth input 0 )))
+                  (def y (parseInt (nth input 1 )))
+                  (if (not(contains @alreadyPrepared [x y] ))
+                      (do
+                          (swap! alreadyPrepared conj [x y])
+                          (updateTargets targets [x y])
+                      )
+                  )
+              )
+          )    
 )
 
 
+(defn setTargets [n m originaSize]
+  (def targets (atom {}))
+  (loop [i 2]
+      (when (< i n)
+      (do
+        (loop [j 2]
+          (when (< j m)
+          (do
+            (swap! targets assoc [i j] 9)
+          )
+          (recur (inc j))
+          )
+        )
+      )
+      (recur (inc i))))
+  (startShooting targets)
+)
+
+(defn findSquareDimentions [a originalSize]
+(def smallestDifference a)
+
+   (dotimes [i a]
+    (def iplus (+ i 1))
+     (if
+        (and 
+             (= (mod a iplus) 0)
+             (< (abs (- iplus (/ a iplus))) smallestDifference)
+        )
+        (do
+            (def smallestDifference (abs (- iplus (/ a iplus))))
+            (def n iplus)
+            (def m (/ a iplus))
+            
+        )
+    )
+    )
+ 
+  (if (or (< n 3) (< m 3)) (recur (+ a 1) originalSize)  (setTargets n m originalSize))
+)
+
+(defn main []
+    
+    (def t (parseInt(read-line)))
+    (dotimes [times t]
+             (def a (parseInt(read-line)))
+             (def squareSize a)
+             (findSquareDimentions  a a)
+    )
+)
+
+(main)
